@@ -72,7 +72,7 @@ class _ItemsPageState extends State<ItemsPageContent> {
               height: 600,
               child: ListView(
                 padding: const EdgeInsets.all(16.0),
-                children: items,
+                children: items ?? [],
               )
           ),
           DrawButton(items: context.watch<HdwState>().sCurrentItems),

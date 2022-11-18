@@ -31,11 +31,10 @@ class _CategoryTileState extends State<CategoryTile> {
 
   @override
   Widget build(BuildContext context) {
-    if (!(widget._isChild) && widget._parent.isNotEmpty) widget._isChild = true;
     if (widget._isNew) {
       if (widget._isChild) {
-        return NewCategoryTile(name: widget._name,);
-//        return NewCategoryTile(name: widget._name, isChild: true, parentCat: widget._parent,);
+//        return NewCategoryTile(name: widget._name,);
+        return NewCategoryTile(name: widget._name, isChild: true, parentCat: widget._parent,);
       } else {
         return NewCategoryTile(name: widget._name,);
       }
@@ -100,7 +99,6 @@ class _CategoryTileState extends State<CategoryTile> {
                                     //context.watch<HdwState>().setItemInclusion(item, value);
                                   }
                                 }
-                                //widget._setInclusion(isChecked); // TODO: fix inclusion of checked items
                               }
                             });
                           },

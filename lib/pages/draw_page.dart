@@ -14,7 +14,7 @@ class DrawPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final arg = ModalRoute.of(context)!.settings.arguments as Map;
+    final arg = ModalRoute.of(context)?.settings.arguments as Map;
     List<String> itemsList = arg['itemsList'];
     final rand = Random();
     var selection = itemsList[rand.nextInt(itemsList.length)];

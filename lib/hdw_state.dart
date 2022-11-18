@@ -45,7 +45,7 @@ class HdwState with ChangeNotifier {
 
   void setItemInclusion(String item, bool isInsert) {
     if (isInsert) {
-      if (!_currentItems.contains(item)) {
+      if (!(_currentItems.contains(item))) {
         _currentItems.add(item);
       }
     }

@@ -4,19 +4,22 @@ import 'package:hat_draw_app/hdw_state.dart';
 import 'package:hat_draw_app/new_category_tile.dart';
 
 class CategoryTile extends StatefulWidget {
-  const CategoryTile({
+  CategoryTile({
     Key? key,
     required String name,
     String parentCat = "",
+    bool isChild = false,
     bool isNew = false,
   })
       : _name = name,
         _parent = parentCat,
+        _isChild = isChild,
         _isNew = isNew,
         super(key: key);
 
   final String _name;
   final String _parent;
+  bool _isChild;
   final bool _isNew;
 
   @override
@@ -28,10 +31,11 @@ class _CategoryTileState extends State<CategoryTile> {
 
   @override
   Widget build(BuildContext context) {
-    bool isChild = (widget._parent.isEmpty) ? false : true;
+    if (!(widget._isChild) && widget._parent.isNotEmpty) widget._isChild = true;
     if (widget._isNew) {
-      if (isChild) {
-        return NewCategoryTile(name: widget._name, parentCat: widget._parent,);
+      if (widget._isChild) {
+        return NewCategoryTile(name: widget._name,);
+//        return NewCategoryTile(name: widget._name, isChild: true, parentCat: widget._parent,);
       } else {
         return NewCategoryTile(name: widget._name,);
       }
@@ -39,7 +43,7 @@ class _CategoryTileState extends State<CategoryTile> {
     else {
       return Row(
         children: [
-          if (isChild) const Spacer(),
+          if (widget._isChild) const Spacer(),
           Card(
             margin: const EdgeInsets.fromLTRB(16.0,10.0,16.0,5.0),
             child:
@@ -48,7 +52,7 @@ class _CategoryTileState extends State<CategoryTile> {
                 InkWell(
                   child: Container(
                     alignment: Alignment.centerLeft,
-                    width: 270 - ((isChild) ? 30 : 0),
+                    width: 270 - ((widget._isChild) ? 30 : 0),
                     child:
                     Text(
                         widget._name,
@@ -59,7 +63,7 @@ class _CategoryTileState extends State<CategoryTile> {
                     ),
                   ),
                   onTap: () {
-                    if (!isChild) {
+                    if (!(widget._isChild)) {
                       if (ModalRoute.of(context)?.settings.name != '/items') Navigator.pushNamed(context, '/items', arguments: { 'catName': widget._name });
                     }
                   },
@@ -85,7 +89,7 @@ class _CategoryTileState extends State<CategoryTile> {
                             setState(() {
                               if (value != null) {
                                 isChecked = value;
-                                if (isChild) {
+                                if (widget._isChild) {
                                   Provider.of<HdwState>(context, listen: false).setItemInclusion(widget._name, value);
                                   //context.watch<HdwState>().setItemInclusion(widget._name, value);
                                 }

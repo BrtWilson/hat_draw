@@ -133,7 +133,7 @@ class TestSequence extends StatelessWidget {
     return Column(
       children: [
         CategoryTile(name: _name,),
-        const CategoryTile(name: "Test Name 2", parentCat: "Nothing"),
+        CategoryTile(name: "Test Name 2", parentCat: "Nothing"),
         //HdwWideButton(buttontext: "Test button", ),
         DrawButton(items: _categories)
       ],

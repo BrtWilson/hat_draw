@@ -6,13 +6,16 @@ class NewCategoryTile extends StatefulWidget {
   NewCategoryTile({
     Key? key,
     required String name,
+    bool isChild = false,
     String parentCat = "",
   })
       : _name = name,
+        _isChild = isChild,
         _parent = parentCat,
         super(key: key);
 
   final String _name;
+  bool _isChild;
   final String _parent;
   TextEditingController _teController = TextEditingController();
 
@@ -24,18 +27,18 @@ class _NewCategoryTileState extends State<NewCategoryTile> {
 
   @override
   Widget build(BuildContext context) {
-    final bool isChild = (widget._parent.isEmpty) ? false : true;
+    //if (widget._parent.isNotEmpty) widget._isChild = true;
     return Row(
         children: [
-          if (isChild) const Spacer(),
+          if (widget._isChild) const Spacer(),
           Card(
             margin: const EdgeInsets.fromLTRB(16.0,10.0,16.0,5.0),
             child:
             Row(
               children: [
-                if (isChild) const Spacer(),
+                if (widget._isChild) const Spacer(),
                 Container(
-                  width: 270 - ((isChild) ? 30 : 0),
+                  width: 270 - ((widget._isChild) ? 30 : 0),
                   child:
                       Container(
                         color: Colors.grey[300],
@@ -73,9 +76,14 @@ class _NewCategoryTileState extends State<NewCategoryTile> {
                             // TODO: verify edit card text
                             String inputText = widget._teController.text;
                             setState(() {
-                              if (isChild) {
-                                Provider.of<HdwState>(context, listen: false).addItem(widget._parent, inputText);
-                                //context.watch<HdwState>().addItem(widget._parent, inputText);
+                              if (widget._isChild) {
+                                if (widget._parent.isNotEmpty) {
+                                  Provider.of<HdwState>(context, listen: false).addItem(widget._parent, inputText);
+                                  //context.watch<HdwState>().addItem(widget._parent, inputText);
+                                }
+                                else {
+                                  print("Error with new item addition.");
+                                }
                               }
                               else {
                                 Provider.of<HdwState>(context, listen: false).addCategory(inputText);

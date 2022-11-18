@@ -10,7 +10,7 @@ class ItemsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final arg = ModalRoute.of(context)!.settings.arguments as Map;
+    final arg = ModalRoute.of(context)?.settings.arguments as Map;
     String _catName = arg['catName'];
     int _index = context.watch<HdwState>().sCategories.indexOf(_catName);
     List<String> _itemList = context.watch<HdwState>().sCatContents[_index].mItems;
@@ -59,8 +59,12 @@ class _ItemsPageState extends State<ItemsPageContent> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> items = widget._catItems.map((item) => CategoryTile(name: item, parentCat: widget._catName)).toList(); //_catItems.map((c_name) => CategoryTile(name: c_name, checkedItems: context.watch<HdwState>().sCurrentItems, setInclusion: context.watch<HdwState>().setItemInclusion)).toList();
-    //items.add(CategoryTile(name: "New Item", checkedItems: [], setInclusion: widget._setInclusion, parentCat: widget._catName, isNew: true,))
+    //List<Widget> items = context.watch<HdwState>().sCategories.map((c_name) => CategoryTile(name: c_name, )).toList();
+    List<Widget> items = widget._catItems.map((i_name) => CategoryTile(name: i_name, isChild: true,)).toList();
+    items.add(CategoryTile(name: "New Category", parentCat: widget._catName, isChild: true, isNew: true,));
+    // List<Widget> items = widget._catItems.map((item) => CategoryTile(name: item, parentCat: widget._catName)).toList(); //_catItems.map((c_name) => CategoryTile(name: c_name, checkedItems: context.watch<HdwState>().sCurrentItems, setInclusion: context.watch<HdwState>().setItemInclusion)).toList();
+    // items.add(CategoryTile(name: "New Item", parentCat: widget._catName, isNew: true,));
+
     return Column(
         children: [
           CategoryTile(name: widget._catName,),

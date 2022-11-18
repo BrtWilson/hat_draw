@@ -15,9 +15,9 @@ class DrawPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final arg = ModalRoute.of(context)!.settings.arguments as Map;
-    List<String> _itemsList = arg['itemsList'];
-    final _rand = Random();
-    var _selection = _itemsList[_rand.nextInt(_itemsList.length)];
+    List<String> itemsList = arg['itemsList'];
+    final rand = Random();
+    var selection = itemsList[rand.nextInt(itemsList.length)];
 
     return Scaffold(
         appBar: AppBar(
@@ -26,13 +26,13 @@ class DrawPage extends StatelessWidget {
         body: Column(
           children: [
             Spacer(),
-            Text(_selection),
+            Text(selection),
             Spacer(),
             Container(
               height: 100,
               child: Column(
                   children: [
-                    DrawButton(items: _itemsList, is_redraw: true),
+                    DrawButton(items: itemsList, is_redraw: true),
                     FloatingActionButton.extended(
                       label: const Text("Return to Selection"),
                       backgroundColor: Colors.blue[800],

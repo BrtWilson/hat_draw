@@ -7,21 +7,15 @@ class CategoryTile extends StatefulWidget {
   const CategoryTile({
     Key? key,
     required String name,
-    required List<String> checkedItems,
-    required Function setInclusion,
     String parentCat = "",
     bool isNew = false,
   })
       : _name = name,
-        _checkedItems = checkedItems,
-        _setInclusion = setInclusion,
         _parent = parentCat,
         _isNew = isNew,
         super(key: key);
 
   final String _name;
-  final List<String> _checkedItems;
-  final Function _setInclusion;
   final String _parent;
   final bool _isNew;
 

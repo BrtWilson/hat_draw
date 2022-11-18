@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:hat_draw_app/hdw_classes/category_tile.dart';
 import 'package:hat_draw_app/hdw_classes/draw_button.dart';
 import 'package:hat_draw_app/hdw_state.dart';
-import 'package:hat_draw_app/pages/items_page.dart';
 
 class ItemsPage extends StatelessWidget {
   ItemsPage({super.key});
@@ -20,7 +19,7 @@ class ItemsPage extends StatelessWidget {
         appBar: AppBar(
           title: Text("Hat Draw"),
         ),
-        body: ItemsPageContent(catName: _catName, catItems: _itemList, checkedItems: context.watch<HdwState>().sCurrentItems, setInclusion: context.watch<HdwState>().setItemInclusion,),
+        body: ItemsPageContent(catName: _catName, catItems: _itemList, ),
     );
 
     return Scaffold(
@@ -44,19 +43,13 @@ class ItemsPageContent extends StatefulWidget {
     Key? key,
     required String catName,
     required List<String> catItems,
-    required List<String> checkedItems,
-    required Function setInclusion,
   })
       : _catName = catName,
         _catItems = catItems,
-        _checkedItems = checkedItems,
-        _setInclusion = setInclusion,
         super(key: key);
 
   final String _catName;
   final List<String> _catItems;
-  final List<String> _checkedItems;
-  final Function _setInclusion;
 
   @override
   State<ItemsPageContent> createState() => _ItemsPageState();
@@ -66,14 +59,13 @@ class _ItemsPageState extends State<ItemsPageContent> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> items = widget._catItems.map((item) => CategoryTile(name: item, checkedItems: widget._checkedItems, setInclusion: widget._setInclusion, parentCat: widget._catName)).toList(); //_catItems.map((c_name) => CategoryTile(name: c_name, checkedItems: context.watch<HdwState>().sCurrentItems, setInclusion: context.watch<HdwState>().setItemInclusion)).toList();
-    //items.add(CategoryTile(name: "New Item", checkedItems: [], setInclusion: widget._setInclusion, parentCat: widget._catName, isNew: true,));
-
+    List<Widget> items = widget._catItems.map((item) => CategoryTile(name: item, parentCat: widget._catName)).toList(); //_catItems.map((c_name) => CategoryTile(name: c_name, checkedItems: context.watch<HdwState>().sCurrentItems, setInclusion: context.watch<HdwState>().setItemInclusion)).toList();
+    //items.add(CategoryTile(name: "New Item", checkedItems: [], setInclusion: widget._setInclusion, parentCat: widget._catName, isNew: true,))
     return Column(
         children: [
-          CategoryTile(name: widget._catName, checkedItems: widget._checkedItems, setInclusion: widget._setInclusion),
+          CategoryTile(name: widget._catName,),
           Container(
-              height: 300,
+              height: 600,
               child: ListView(
                 padding: const EdgeInsets.all(16.0),
                 children: items,

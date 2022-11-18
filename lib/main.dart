@@ -132,8 +132,8 @@ class TestSequence extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CategoryTile(name: _name, checkedItems: _categories, setInclusion: setState),
-        CategoryTile(name: "Test Name 2", checkedItems: _categories, setInclusion: setState, parentCat: "Nothing"),
+        CategoryTile(name: _name,),
+        const CategoryTile(name: "Test Name 2", parentCat: "Nothing"),
         //HdwWideButton(buttontext: "Test button", ),
         DrawButton(items: _categories)
       ],

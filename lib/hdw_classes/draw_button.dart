@@ -37,15 +37,6 @@ class DrawButton extends StatelessWidget {
             }
           },
         ),
-
-      // FloatingActionButton(
-      //   backgroundColor: Colors.blueGrey,
-      //   foregroundColor: Colors.white,
-      //   onPressed: () => {},
-      //   child: const Icon(
-      //       Icons.breakfast_dining_sharp
-      //   ),
-      // )
     );
   }
 }

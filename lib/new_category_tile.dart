@@ -28,7 +28,6 @@ class _NewCategoryTileState extends State<NewCategoryTile> {
 
   @override
   Widget build(BuildContext context) {
-    //if (widget._parent.isNotEmpty) widget._isChild = true;
     return Row(
         children: [
           if (widget._isChild) const Spacer(),
@@ -58,13 +57,6 @@ class _NewCategoryTileState extends State<NewCategoryTile> {
                                 hintText: widget._name,
                               ),
                             ),
-                            // Text(
-                            //     widget._name,
-                            //     style: TextStyle(
-                            //         fontSize: 18.0,
-                            //         color: Colors.grey[600]
-                            //     )
-                            // ),
                           ),
                         ),
                         Align(
@@ -84,7 +76,6 @@ class _NewCategoryTileState extends State<NewCategoryTile> {
                                         if (widget._isChild) {
                                           if (widget._parent.isNotEmpty) {
                                             Provider.of<HdwState>(context, listen: false).addItem(widget._parent, inputText);
-                                            //context.watch<HdwState>().addItem(widget._parent, inputText);
                                           }
                                           else {
                                             print("Error with new item addition.");
@@ -92,7 +83,6 @@ class _NewCategoryTileState extends State<NewCategoryTile> {
                                         }
                                         else {
                                           Provider.of<HdwState>(context, listen: false).addCategory(inputText);
-                                          //context.watch<HdwState>().addCategory(inputText);
                                         }
                                       });
                                     }
@@ -108,24 +98,6 @@ class _NewCategoryTileState extends State<NewCategoryTile> {
                           Icons.check_box_outline_blank,
                           color: Colors.white,
                         ),
-                        // Text(widget._name),
-                        // const Icon(Icons.mode_edit),
-                        // Checkbox(
-                        //   value: isChecked,
-                        //   onChanged: (value) {
-                        //     setState(() {
-                        //       isChecked = value!;
-                        //       widget._setInclusion(isChecked);
-                        //     });
-                        //   },
-                        // ),
-
-                        // IconButton(onPressed: onPressed,
-                        //     icon: icon
-                        // )
-                        // if (checked) const Icon(Icons.check_box_outlined)
-                        // else const Icon(Icons.check_box_outline_blank)
-
                       ],
                     ),
                 )

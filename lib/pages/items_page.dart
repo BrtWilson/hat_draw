@@ -22,19 +22,6 @@ class ItemsPage extends StatelessWidget {
         body: ItemsPageContent(catName: _catName, catItems: _itemList, ),
     );
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Second Route'),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            // Navigate back to first route when tapped.
-          },
-          child: const Text('Go back!'),
-        ),
-      ),
-    );
   }
 }
 
@@ -50,7 +37,6 @@ class ItemsPageContent extends StatefulWidget {
 
   final String _catName;
   final List<String> _catItems;
-  //final ScrollController sController = ScrollController();
 
   @override
   State<ItemsPageContent> createState() => _ItemsPageState();

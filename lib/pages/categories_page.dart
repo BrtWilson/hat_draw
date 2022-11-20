@@ -11,9 +11,6 @@ class CategoriesPage extends StatelessWidget {
     Key? key,
   }) : super(key: key); //_state = state, super(key: key);
 
-  //final HdwState _state;
-  //int _index = 0;
-
   @override
   Widget build(BuildContext context) {
     List<Widget> categories = context.watch<HdwState>().sCategories.map((c_name) => CategoryTile(name: c_name, )).toList();

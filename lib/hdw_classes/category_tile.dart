@@ -106,25 +106,6 @@ class _CategoryTileState extends State<CategoryTile> {
                       ]
                   ),
                 ),
-
-                // Text(widget._name),
-                // const Icon(Icons.mode_edit),
-                // Checkbox(
-                //   value: isChecked,
-                //   onChanged: (value) {
-                //     setState(() {
-                //       isChecked = value!;
-                //       widget._setInclusion(isChecked);
-                //     });
-                //   },
-                // ),
-
-                // IconButton(onPressed: onPressed,
-                //     icon: icon
-                // )
-                // if (checked) const Icon(Icons.check_box_outlined)
-                // else const Icon(Icons.check_box_outline_blank)
-
               ],
             ),
           )

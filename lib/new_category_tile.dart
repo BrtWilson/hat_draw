@@ -49,6 +49,7 @@ class _NewCategoryTileState extends State<NewCategoryTile> {
                             child:
                             TextField(
                               controller: widget._teController,
+                              //Todo: fix pixel overflow or switch "new item" to top
                               style: TextStyle(
                                 fontSize: 18.0,
                                 color: Colors.grey[600],
@@ -56,6 +57,7 @@ class _NewCategoryTileState extends State<NewCategoryTile> {
                               decoration: InputDecoration(
                                 hintText: widget._name,
                               ),
+
                             ),
                           ),
                         ),
@@ -76,10 +78,12 @@ class _NewCategoryTileState extends State<NewCategoryTile> {
                                         if (widget._isChild) {
                                           if (widget._parent.isNotEmpty) {
                                             Provider.of<HdwState>(context, listen: false).addItem(widget._parent, inputText);
+                                            Navigator.pushReplacementNamed(context, '/items', arguments: { 'catName': widget._parent });
                                           }
                                           else {
                                             print("Error with new item addition.");
-                                            //Todo: add pop-up
+                                            var snackBar = const SnackBar(content: Text("Error with new item addition."));
+                                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
                                           }
                                         }
                                         else {

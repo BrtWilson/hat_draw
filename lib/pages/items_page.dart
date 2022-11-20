@@ -47,8 +47,7 @@ class _ItemsPageState extends State<ItemsPageContent> {
   @override
   Widget build(BuildContext context) {
     List<Widget> items = widget._catItems.map((i_name) => CategoryTileHolder(name: i_name, isChild: true,)).toList();
-    items.add(CategoryTileHolder(name: "New Category", parentCat: widget._catName, isChild: true, isNew: true,));
-    //items.add(CategoryTileHolder(name: "New Category", isChild: true, isNew: true,));
+    items.add(CategoryTileHolder(name: "New Item", parentCat: widget._catName, isChild: true, isNew: true,));
 
     return Column(
         children: [

@@ -57,7 +57,28 @@ class _NewCategoryTileState extends State<NewCategoryTile> {
                               decoration: InputDecoration(
                                 hintText: widget._name,
                               ),
-
+                              // onSubmitted: () {
+                              //   String inputText = widget._teController.text;
+                              //   setState(() {
+                              //     if (widget._isChild) {
+                              //       if (widget._parent.isNotEmpty) {
+                              //         Provider.of<HdwState>(context, listen: false).addItem(widget._parent, inputText);
+                              //         Navigator.pushReplacementNamed(context, '/items', arguments: { 'catName': widget._parent });
+                              //       }
+                              //       else {
+                              //         print("Error with new item addition.");
+                              //         var snackBar = const SnackBar(content: Text("Error with new item addition."));
+                              //         ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                              //       }
+                              //     }
+                              //     else {
+                              //       Provider.of<HdwState>(context, listen: false).addCategory(inputText);
+                              //     }
+                              //   });
+                              // }
+                              // onTap: () => {
+                              //   if (widget._isChild) Navigator.pushReplacementNamed(context, 'items', arguments: { 'catName': widget._parent }),
+                              // },
                             ),
                           ),
                         ),
@@ -72,7 +93,6 @@ class _NewCategoryTileState extends State<NewCategoryTile> {
                                       size: 25.0,
                                     ),
                                     onTap: () {
-                                      // TODO: verify edit card text
                                       String inputText = widget._teController.text;
                                       setState(() {
                                         if (widget._isChild) {

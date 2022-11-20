@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hat_draw_app/hdw_classes/category_tile.dart';
 import 'package:provider/provider.dart';
 import 'package:hat_draw_app/hdw_state.dart';
 
-class NewCategoryTile extends StatefulWidget {
+class NewCategoryTile extends CategoryTile {
   NewCategoryTile({
     Key? key,
     required String name,
@@ -12,7 +13,7 @@ class NewCategoryTile extends StatefulWidget {
       : _name = name,
         _isChild = isChild,
         _parent = parentCat,
-        super(key: key);
+        super(key: key, name: name);
 
   final String _name;
   bool _isChild;
@@ -35,12 +36,14 @@ class _NewCategoryTileState extends State<NewCategoryTile> {
             margin: const EdgeInsets.fromLTRB(16.0,10.0,16.0,5.0),
             child:
             Row(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 if (widget._isChild) const Spacer(),
-                Container(
-                  width: 270 - ((widget._isChild) ? 30 : 0),
+                Align(
+                  alignment: Alignment.centerLeft,
                   child:
                       Container(
+                        width: 270 - ((widget._isChild) ? 30 : 0),
                         color: Colors.grey[300],
                         child:
                           TextField(

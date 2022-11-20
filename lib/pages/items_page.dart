@@ -52,22 +52,27 @@ class _ItemsPageState extends State<ItemsPageContent> {
     double keyOverflow = 0.0;
     if (MediaQuery.of(context).viewInsets.bottom != 0) keyOverflow = 208.0;
 
-    return Column(
-        children: [
-          CategoryTile(name: widget._catName,),
-            SizedBox(
+    return
+      SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child:
+          Column(
+            children: [
+              CategoryTile(name: widget._catName,),
+              SizedBox(
                 height: 600 - keyOverflow,
                 width: 400,
                 child:
-                ListView(
-                  //controller: widget.sController,
+                  ListView(
+                    //controller: widget.sController,
                   key: const Key("ItemList"),
                   padding: const EdgeInsets.all(16.0),
                   children: items,
-                )
-            ),
-          if (keyOverflow == 0.0) DrawButton(items: context.watch<HdwState>().sCurrentItems),
-        ]
-    );
+                ),
+              ),
+              if (keyOverflow == 0.0) DrawButton(items: context.watch<HdwState>().sCurrentItems),
+            ]
+          )
+      );
   }
 }

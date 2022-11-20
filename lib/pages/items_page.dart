@@ -50,7 +50,7 @@ class ItemsPageContent extends StatefulWidget {
 
   final String _catName;
   final List<String> _catItems;
-  final ScrollController sController = ScrollController();
+  //final ScrollController sController = ScrollController();
 
   @override
   State<ItemsPageContent> createState() => _ItemsPageState();
@@ -61,8 +61,8 @@ class _ItemsPageState extends State<ItemsPageContent> {
   @override
   Widget build(BuildContext context) {
     List<Widget> items = widget._catItems.map((i_name) => CategoryTileHolder(name: i_name, isChild: true,)).toList();
-    //items.add(CategoryTile(name: "New Category", parentCat: widget._catName, isChild: true, isNew: true,));
-    items.add(CategoryTileHolder(name: "New Category", isChild: true, isNew: true,));
+    items.add(CategoryTileHolder(name: "New Category", parentCat: widget._catName, isChild: true, isNew: true,));
+    //items.add(CategoryTileHolder(name: "New Category", isChild: true, isNew: true,));
 
     return Column(
         children: [
@@ -72,7 +72,7 @@ class _ItemsPageState extends State<ItemsPageContent> {
               width: 400,
               child:
               ListView(
-                controller: widget.sController,
+                //controller: widget.sController,
                 key: const Key("ItemList"),
                 padding: const EdgeInsets.all(16.0),
                 children: items ?? [],

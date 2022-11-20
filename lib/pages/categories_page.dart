@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:hat_draw_app/hdw_classes/category_contents.dart';
 import 'package:hat_draw_app/hdw_classes/category_tile.dart';
 import 'package:hat_draw_app/hdw_classes/draw_button.dart';
 import 'package:hat_draw_app/hdw_state.dart';
@@ -15,77 +14,80 @@ class CategoriesPage extends StatelessWidget {
     List<Widget> categories = context.watch<HdwState>().sCategories.map((c_name) => CategoryTile(name: c_name, )).toList();
     categories.add(CategoryTile(name: "New Category", isNew: true,));
 
+    double keyOverflow = 0.0;
+    if (MediaQuery.of(context).viewInsets.bottom != 0) keyOverflow = 208;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text("Hat Draw"),
+        title: const Text("Hat Draw"),
       ),
       body:
         Column(
           children: [
             SizedBox(
-              height: 600,
+              height: 600 - keyOverflow,
               child: ListView(
                     padding: const EdgeInsets.all(16.0),
                     children: categories, //context.watch<HdwState>().sCategories.map((c_name) => CategoryTile(name: c_name, checkedItems: context.watch<HdwState>().sCurrentItems, setInclusion: context.watch<HdwState>().setItemInclusion)).toList(),
               )
             ),
-            DrawButton(items: context.watch<HdwState>().sCurrentItems),
+            if (keyOverflow == 0.0) DrawButton(items: context.watch<HdwState>().sCurrentItems),
           ]
         ),
     );
   }
 }
 
-class Category extends StatefulWidget {
-  const Category({
-    Key? key,
-    required int index,
-    required String catName,
-    required CategoryContents catSet,
-  }) : _index = index, _catName = catName, _catSet = catSet, super(key: key);
-
-  final int _index;
-  final String _catName;
-  final CategoryContents _catSet;
-
-  @override
-  State<Category> createState() => _CategoryState();
-}
-
-class _CategoryState extends State<Category> {
-
-  @override
-  Widget build(BuildContext context) {  //Widget categoryCard( String catName ) {
-    return Card(
-        margin: const EdgeInsets.fromLTRB(16.0,16.0,16.0,10.0),
-        child: Row(
-          children: [
-            Text(
-                widget._catName,
-                style: TextStyle(
-                    fontSize: 18.0,
-                    color: Colors.grey[600]
-                )
-            ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: Row (
-                  children: <Widget>[
-                    Icon(
-                      Icons.edit,
-                      color: Colors.grey[500],
-                      size: 25.0,
-                    ),
-                    Icon(
-                      Icons.check_box_outline_blank,
-                      color: Colors.grey[500],
-                      size: 25.0,
-                    ),
-                  ]
-              ),
-            ),
-          ],
-        )
-    );
-  }
-}
+// class Category extends StatefulWidget {
+//   const Category({
+//     Key? key,
+//     required int index,
+//     required String catName,
+//     required CategoryContents catSet,
+//   }) : _index = index, _catName = catName, _catSet = catSet, super(key: key);
+//
+//   final int _index;
+//   final String _catName;
+//   final CategoryContents _catSet;
+//
+//   @override
+//   State<Category> createState() => _CategoryState();
+// }
+//
+// class _CategoryState extends State<Category> {
+//
+//   @override
+//   Widget build(BuildContext context) {  //Widget categoryCard( String catName ) {
+//     return Card(
+//         margin: const EdgeInsets.fromLTRB(16.0,16.0,16.0,10.0),
+//         child: Row(
+//           children: [
+//             Text(
+//                 widget._catName,
+//                 style: TextStyle(
+//                     fontSize: 18.0,
+//                     color: Colors.grey[600]
+//                 )
+//             ),
+//             Align(
+//               alignment: Alignment.centerRight,
+//               child: Row (
+//                   children: <Widget>[
+//                     Icon(
+//                       Icons.edit,
+//                       color: Colors.grey[500],
+//                       size: 25.0,
+//                     ),
+//                     Icon(
+//                       Icons.check_box_outline_blank,
+//                       color: Colors.grey[500],
+//                       size: 25.0,
+//                     ),
+//                   ]
+//               ),
+//             ),
+//           ],
+//         )
+//     );
+//   }
+// }

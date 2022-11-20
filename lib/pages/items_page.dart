@@ -49,11 +49,14 @@ class _ItemsPageState extends State<ItemsPageContent> {
     List<Widget> items = widget._catItems.map((i_name) => CategoryTileHolder(name: i_name, isChild: true,)).toList();
     items.add(CategoryTileHolder(name: "New Item", parentCat: widget._catName, isChild: true, isNew: true,));
 
+    double keyOverflow = 0.0;
+    if (MediaQuery.of(context).viewInsets.bottom != 0) keyOverflow = 208.0;
+
     return Column(
         children: [
           CategoryTile(name: widget._catName,),
             SizedBox(
-                height: 600,
+                height: 600 - keyOverflow,
                 width: 400,
                 child:
                 ListView(
@@ -63,7 +66,7 @@ class _ItemsPageState extends State<ItemsPageContent> {
                   children: items,
                 )
             ),
-          DrawButton(items: context.watch<HdwState>().sCurrentItems),
+          if (keyOverflow == 0.0) DrawButton(items: context.watch<HdwState>().sCurrentItems),
         ]
     );
   }

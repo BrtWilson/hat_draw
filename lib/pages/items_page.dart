@@ -11,15 +11,15 @@ class ItemsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final arg = ModalRoute.of(context)?.settings.arguments as Map;
-    String _catName = arg['catName'];
-    int _index = context.watch<HdwState>().sCategories.indexOf(_catName);
-    List<String> _itemList = context.watch<HdwState>().sCatContents[_index].mItems;
+    String catName = arg['catName'];
+    int index = context.watch<HdwState>().sCategories.indexOf(catName);
+    List<String> itemList = context.watch<HdwState>().sCatContents[index].mItems;
 
     return Scaffold(
         appBar: AppBar(
-          title: Text("Hat Draw"),
+          title: const Text("Hat Draw"),
         ),
-        body: ItemsPageContent(catName: _catName, catItems: _itemList, ),
+        body: ItemsPageContent(catName: catName, catItems: itemList, ),
     );
 
   }
@@ -53,17 +53,17 @@ class _ItemsPageState extends State<ItemsPageContent> {
     return Column(
         children: [
           CategoryTile(name: widget._catName,),
-          Container(
-              height: 600,
-              width: 400,
-              child:
-              ListView(
-                //controller: widget.sController,
-                key: const Key("ItemList"),
-                padding: const EdgeInsets.all(16.0),
-                children: items ?? [],
-              )
-          ),
+            SizedBox(
+                height: 600,
+                width: 400,
+                child:
+                ListView(
+                  //controller: widget.sController,
+                  key: const Key("ItemList"),
+                  padding: const EdgeInsets.all(16.0),
+                  children: items,
+                )
+            ),
           DrawButton(items: context.watch<HdwState>().sCurrentItems),
         ]
     );

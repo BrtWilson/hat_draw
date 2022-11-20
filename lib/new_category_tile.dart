@@ -16,9 +16,9 @@ class NewCategoryTile extends CategoryTile {
         super(key: key, name: name);
 
   final String _name;
-  bool _isChild;
+  final bool _isChild;
   final String _parent;
-  TextEditingController _teController = TextEditingController();
+  final TextEditingController _teController = TextEditingController();
 
   @override
   State<NewCategoryTile> createState() => _NewCategoryTileState();
@@ -34,7 +34,7 @@ class _NewCategoryTileState extends State<NewCategoryTile> {
           Card(
             margin: const EdgeInsets.fromLTRB(16.0,10.0,16.0,5.0),
             child:
-                Container(
+                SizedBox(
                   width: 347 - ((widget._isChild) ? 30 : 0),
                   child:
                     Row(
@@ -79,6 +79,7 @@ class _NewCategoryTileState extends State<NewCategoryTile> {
                                           }
                                           else {
                                             print("Error with new item addition.");
+                                            //Todo: add pop-up
                                           }
                                         }
                                         else {

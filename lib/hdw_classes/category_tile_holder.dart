@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:hat_draw_app/hdw_state.dart';
 import 'package:hat_draw_app/new_category_tile.dart';
 
 import 'category_tile.dart';

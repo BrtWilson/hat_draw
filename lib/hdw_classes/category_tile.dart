@@ -19,7 +19,7 @@ class CategoryTile extends StatefulWidget {
 
   final String _name;
   final String _parent;
-  bool _isChild;
+  final bool _isChild;
   final bool _isNew;
 
   @override

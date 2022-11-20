@@ -4,7 +4,6 @@ import 'package:hat_draw_app/hdw_classes/category_contents.dart';
 import 'package:hat_draw_app/hdw_classes/category_tile.dart';
 import 'package:hat_draw_app/hdw_classes/draw_button.dart';
 import 'package:hat_draw_app/hdw_state.dart';
-import 'package:hat_draw_app/new_category_tile.dart';
 
 class CategoriesPage extends StatelessWidget {
   CategoriesPage({
@@ -23,7 +22,7 @@ class CategoriesPage extends StatelessWidget {
       body:
         Column(
           children: [
-            Container(
+            SizedBox(
               height: 600,
               child: ListView(
                     padding: const EdgeInsets.all(16.0),

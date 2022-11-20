@@ -12,6 +12,7 @@ class DrawPage extends StatelessWidget {
     final rand = Random();
     var selection = itemsList[rand.nextInt(itemsList.length)];
 
+
     return Scaffold(
         appBar: AppBar(
           title: const Text("Hat Draw"),
@@ -32,10 +33,6 @@ class DrawPage extends StatelessWidget {
                       foregroundColor: Colors.white,
                       onPressed: () => { Navigator.pop(context) },
                     ),
-                    // HdwWideButton(buttontext: "Return to Selection", action: () {
-                    //   Navigator.pushNamed(context, "/categories");
-                    //   //Navigator.pop(context);
-                    // })
                   ],
               ),
             ),

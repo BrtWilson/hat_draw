@@ -31,6 +31,7 @@ class _CategoryTileState extends State<CategoryTile> {
 
   @override
   Widget build(BuildContext context) {
+
     if (widget._isNew) {
       if (widget._isChild) {
 //        return NewCategoryTile(name: widget._name,);
@@ -40,6 +41,13 @@ class _CategoryTileState extends State<CategoryTile> {
       }
     }
     else {
+      if (widget._isChild) {
+        isChecked = context.watch<HdwState>().sCurrentItems.contains(widget._name);
+      }
+      else {
+        isChecked = context.watch<HdwState>().checkForCategory(widget._name);
+      }
+
       return Row(
         children: [
           if (widget._isChild) const Spacer(),
@@ -52,6 +60,7 @@ class _CategoryTileState extends State<CategoryTile> {
                   child: Container(
                     alignment: Alignment.centerLeft,
                     width: 270 - ((widget._isChild) ? 30 : 0),
+                    // todo: see if adding height: 20, helps with pressing
                     child:
                     Text(
                         widget._name,
@@ -63,7 +72,9 @@ class _CategoryTileState extends State<CategoryTile> {
                   ),
                   onTap: () {
                     if (!(widget._isChild)) {
-                      if (ModalRoute.of(context)?.settings.name != '/items') Navigator.pushNamed(context, '/items', arguments: { 'catName': widget._name });
+                      if (ModalRoute.of(context)?.settings.name != '/items') {
+                        Navigator.pushNamed(context, '/items', arguments: { 'catName': widget._name });
+                      }
                     }
                   },
                 ),
@@ -79,6 +90,7 @@ class _CategoryTileState extends State<CategoryTile> {
                           ),
                           onTap: () {
                             // todo: add edit capability later
+                            // consider adding a delete option while editing **
                           }
                         )
                         ,
@@ -93,12 +105,20 @@ class _CategoryTileState extends State<CategoryTile> {
                                   //context.watch<HdwState>().setItemInclusion(widget._name, value);
                                 }
                                 else {
-                                  List<String> catItems = Provider.of<HdwState>(context, listen: false).getItems(widget._name);
-                                  for (var item in catItems) {
-                                    Provider.of<HdwState>(context, listen: false).setItemInclusion(item, value);
-                                    //context.watch<HdwState>().setItemInclusion(item, value);
-                                  }
+                                  // List<String> catItems = Provider.of<HdwState>(context, listen: false).getItems(widget._name);
+                                  // for (var item in catItems) {
+                                  //   Provider.of<HdwState>(context, listen: false).setItemInclusion(item, value);
+                                  //   //context.watch<HdwState>().setItemInclusion(item, value);
+                                  // }
+                                  Provider.of<HdwState>(context, listen: false).setCategoryInclusion(widget._name, value);
                                 }
+                              }
+                              if (!widget._isChild) {
+                                setState(() {
+
+                                });
+//                                Navigator.pushReplacementNamed(context, '/items', arguments: { 'catName': widget._name });
+                                //Navigate is problematic when on category page
                               }
                             });
                           },

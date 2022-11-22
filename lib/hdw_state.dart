@@ -7,6 +7,7 @@ class HdwState with ChangeNotifier {
     CategoryContents("Eating Out", ["Wendy's", "Taco Baco", "Quiero Mas", "Good Move Cafe"]),
     CategoryContents("Board Games", ["Skull", "Doom", "Dead of Winter", "Betrayal", "San Guo Sha", "Binding of Isaac"])];
   List<String> _currentItems = []; // "Woops! Nothing."
+  List<String> _currentFullCategories = [];
 
   List<String> get sCategories => _categories;
   List<CategoryContents> get sCatContents => _catMap;
@@ -51,6 +52,26 @@ class HdwState with ChangeNotifier {
     }
     else {
       _currentItems.remove(item);
+    }
+  }
+
+  bool checkForCategory(String catName) {
+    return _currentFullCategories.contains(catName);
+  }
+
+  void setCategoryInclusion(String catName, bool isInsert) {
+    if (isInsert) {
+      if (!(_currentFullCategories.contains(catName))) {
+        _currentFullCategories.add(catName);
+      }
+    }
+    else {
+      _currentFullCategories.remove(catName);
+    }
+    int index = _categories.indexOf(catName);
+    List<String> catItems = _catMap[index].mItems;
+    for (var item in catItems) {
+      setItemInclusion(item, isInsert);
     }
   }
 }

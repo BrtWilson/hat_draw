@@ -29,10 +29,10 @@ class DrawButton extends StatelessWidget {
           backgroundColor: Colors.blueGrey,
           foregroundColor: Colors.white,
           onPressed: () => {
-            if (_items.isNotEmpty) {
+//            if (_items.isNotEmpty) {
               if (_isRedraw) Navigator.pushReplacementNamed(context, "/draw", arguments: {'itemsList': _items } )
               else Navigator.pushNamed(context, "/draw", arguments: {'itemsList': _items } )
-            }
+//            }
           },
         ),
     );

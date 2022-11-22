@@ -6,7 +6,7 @@ class HdwState with ChangeNotifier {
   List<CategoryContents> _catMap = [
     CategoryContents("Eating Out", ["Wendy's", "Taco Baco", "Quiero Mas", "Good Move Cafe"]),
     CategoryContents("Board Games", ["Skull", "Doom", "Dead of Winter", "Betrayal", "San Guo Sha", "Binding of Isaac"])];
-  List<String> _currentItems = ["Woops! Nothing."];
+  List<String> _currentItems = []; // "Woops! Nothing."
 
   List<String> get sCategories => _categories;
   List<CategoryContents> get sCatContents => _catMap;

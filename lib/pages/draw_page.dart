@@ -9,8 +9,12 @@ class DrawPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final arg = ModalRoute.of(context)?.settings.arguments as Map;
     List<String> itemsList = arg['itemsList'];
-    final rand = Random();
-    var selection = itemsList[rand.nextInt(itemsList.length)];
+    var selection = "Whoops! Nothing.";
+    if (itemsList.isNotEmpty) {
+      final rand = Random();
+      int index = rand.nextInt(itemsList.length);
+      selection = itemsList[index];
+    }
 
 
     return Scaffold(

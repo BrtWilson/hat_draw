@@ -25,6 +25,7 @@ class DrawPage extends StatelessWidget {
           children: [
             Spacer(),
             Text(selection),
+            Image.asset('assets/hat_draw_large.png'),
             Spacer(),
             Container(
               height: 100,

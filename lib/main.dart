@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hat_draw_app/pages/init_page.dart';
 import 'package:provider/provider.dart';
 import 'package:hat_draw_app/hdw_classes/category_tile.dart';
 import 'package:hat_draw_app/hdw_classes/draw_button.dart';
@@ -30,11 +31,12 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
+        '/init' : (context) => InitPage(),
         '/categories': (context) => CategoriesPage(),
         '/items': (context) => ItemsPage(),
         '/draw': (context) => DrawPage(),
       },
-      home: CategoriesPage(), //const MyHomePage(title: 'Hat Draw'),
+      home: InitPage(), //const MyHomePage(title: 'Hat Draw'),
     );
   }
 }

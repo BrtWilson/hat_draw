@@ -14,7 +14,7 @@ class DrawButton extends StatelessWidget {
   Widget build(BuildContext context) {
     String buttonText = (_isRedraw) ? "Re-Draw!  ": "Draw!  ";
     return Align(
-      alignment: Alignment.bottomLeft,
+      alignment: Alignment.bottomCenter,
       child:
         FloatingActionButton.extended(
           heroTag: "draw",
@@ -26,8 +26,8 @@ class DrawButton extends StatelessWidget {
               ),
             ]
           ),
-          backgroundColor: Colors.blueGrey,
-          foregroundColor: Colors.white,
+          backgroundColor: Colors.red[800],
+          foregroundColor: Colors.black,
           onPressed: () => {
 //            if (_items.isNotEmpty) {
               if (_isRedraw) Navigator.pushReplacementNamed(context, "/draw", arguments: {'itemsList': _items } )

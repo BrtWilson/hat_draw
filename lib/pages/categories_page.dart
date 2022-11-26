@@ -15,7 +15,7 @@ class CategoriesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Widget> categories = context.watch<HdwState>().sCategories.map((c_name) => CategoryTileHolder(name: c_name, )).toList();
     categories.add(CategoryTileHolder(name: "New Category", isNew: true,));
-    //categories.insert(0, CategoryTileHolder(name: " Current Selection "));
+    categories.insert(0, CategoryTileHolder(name: " Current Selection "));
 
     double keyOverflow = 0.0;
     if (MediaQuery.of(context).viewInsets.bottom != 0) keyOverflow = 208;

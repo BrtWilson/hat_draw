@@ -12,8 +12,14 @@ class ItemsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final arg = ModalRoute.of(context)?.settings.arguments as Map;
     String catName = arg['catName'];
-    int index = context.watch<HdwState>().sCategories.indexOf(catName);
-    List<String> itemList = context.watch<HdwState>().sCatContents[index].mItems;
+    List<String> itemList;
+    if (catName == " Current Selection ") {
+      itemList = context.watch<HdwState>().sCurrentItems;
+    }
+    else {
+      int index = context.watch<HdwState>().sCategories.indexOf(catName);
+      itemList = context.watch<HdwState>().sCatContents[index].mItems;
+    }
 
     return Scaffold(
         appBar: AppBar(

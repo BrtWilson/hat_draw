@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hat_draw_app/new_category_tile.dart';
+import 'package:hat_draw_app/hdw_classes/new_category_tile.dart';
 
 import 'category_tile.dart';
 

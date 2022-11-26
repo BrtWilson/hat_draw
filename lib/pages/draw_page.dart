@@ -32,9 +32,10 @@ class DrawPage extends StatelessWidget {
               child: Column(
                   children: [
                     DrawButton(items: itemsList, is_redraw: true),
+                    Spacer(),
                     FloatingActionButton.extended(
                       label: const Text("Return to Selection"),
-                      backgroundColor: Colors.blue[800],
+                      backgroundColor: Colors.red[900],
                       foregroundColor: Colors.white,
                       onPressed: () => { Navigator.pop(context) },
                     ),

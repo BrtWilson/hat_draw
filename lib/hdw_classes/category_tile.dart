@@ -32,15 +32,15 @@ class _CategoryTileState extends State<CategoryTile> {
   @override
   Widget build(BuildContext context) {
 
-    if (widget._isNew) {
-      if (widget._isChild) {
-//        return NewCategoryTile(name: widget._name,);
-        return NewCategoryTile(name: widget._name, isChild: true, parentCat: widget._parent,);
-      } else {
-        return NewCategoryTile(name: widget._name,);
-      }
-    }
-    else {
+//     if (widget._isNew) {
+//       if (widget._isChild) {
+// //        return NewCategoryTile(name: widget._name,);
+//         return NewCategoryTile(name: widget._name, isChild: true, parentCat: widget._parent,);
+//       } else {
+//         return NewCategoryTile(name: widget._name,);
+//       }
+//     }
+//     else {
       if (widget._isChild) {
         isChecked = context.watch<HdwState>().sCurrentItems.contains(widget._name);
       }
@@ -48,90 +48,100 @@ class _CategoryTileState extends State<CategoryTile> {
         isChecked = context.watch<HdwState>().checkForCategory(widget._name);
       }
 
-      return Row(
-        children: [
-          if (widget._isChild) const Spacer(),
-          Card(
-            margin: const EdgeInsets.fromLTRB(16.0,10.0,16.0,5.0),
-            child:
+      return
+        Container(
+          child:
             Row(
               children: [
-                Checkbox(
-                  value: isChecked,
-                  onChanged: (value) {
-                    setState(() {
-                      if (value != null) {
-                        isChecked = value;
-                        if (widget._isChild) {
-                          Provider.of<HdwState>(context, listen: false).setItemInclusion(widget._name, value);
-                          //context.watch<HdwState>().setItemInclusion(widget._name, value);
-                        }
-                        else {
-                          // List<String> catItems = Provider.of<HdwState>(context, listen: false).getItems(widget._name);
-                          // for (var item in catItems) {
-                          //   Provider.of<HdwState>(context, listen: false).setItemInclusion(item, value);
-                          //   //context.watch<HdwState>().setItemInclusion(item, value);
-                          // }
-                          Provider.of<HdwState>(context, listen: false).setCategoryInclusion(widget._name, value);
-                        }
-                      }
-                      if (!widget._isChild) {
-                        setState(() {
-
-                        });
-//                                Navigator.pushReplacementNamed(context, '/items', arguments: { 'catName': widget._name });
-                        //Navigate is problematic when on category page
-                      }
-                    });
-                  },
-                ),
-                const Spacer(),
-                InkWell(
-                  child: Container(
-                    alignment: Alignment.centerLeft,
-                    width: 270 - ((widget._isChild) ? 30 : 0),
-                    // todo: see if adding height: 20, helps with pressing
-                    child:
-                    Text(
-                        " ${widget._name} ",
-                        style: TextStyle(
-                            fontSize: 18.0,
-                            color: Colors.grey[600]
-                        )
-                    ),
-                  ),
-                  onTap: () {
-                    if (!(widget._isChild)) {
-                      if (ModalRoute.of(context)?.settings.name != '/items') {
-                        Navigator.pushNamed(context, '/items', arguments: { 'catName': widget._name });
-                      }
-                    }
-                  },
-                ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Row (
-                      children: [
-                        InkWell(
-                          child: Icon(
-                            Icons.edit,
-                            color: Colors.grey[700],
-                            size: 25.0,
+                if (widget._isChild) const Spacer(),
+                Card(
+                  margin: const EdgeInsets.fromLTRB(16.0,10.0,16.0,5.0),
+                  child:
+                    SizedBox(
+                      width: 343 - ((widget._isChild) ? 30 : 0),
+                      height: 50,
+                      child: Row(
+                        children: [
+                          const Spacer(),
+                          InkWell(
+                            child: Container(
+                              alignment: Alignment.centerLeft,
+                              width: 270 - ((widget._isChild) ? 30 : 0),
+                              // todo: see if adding height: 20, helps with pressing
+                              child:
+                              Text(
+                                  " ${widget._name} ",
+                                  style: TextStyle(
+                                      fontSize: 18.0,
+                                      color: Colors.grey[600]
+                                  )
+                              ),
+                            ),
+                            onTap: () {
+                              if (!(widget._isChild)) {
+                                if (ModalRoute.of(context)?.settings.name != '/items') {
+                                  Navigator.pushNamed(context, '/items', arguments: { 'catName': widget._name });
+                                }
+                              }
+                            },
                           ),
-                          onTap: () {
-                            // todo: add edit capability later
-                            // consider adding a delete option while editing **
-                          }
-                        ),
-                      ]
-                  ),
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: Row (
+                                children: [
+                                  InkWell(
+                                      child: Icon(
+                                        Icons.edit,
+                                        color: Colors.grey[700],
+                                        size: 25.0,
+                                      ),
+                                      onTap: () {
+                                        // todo: add edit capability later
+                                        // consider adding a delete option while editing **
+                                      }
+                                  ),
+                                  Checkbox(
+                                    value: isChecked,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        if (value != null) {
+                                          isChecked = value;
+                                          if (widget._isChild) {
+                                            Provider.of<HdwState>(context, listen: false).setItemInclusion(widget._name, value);
+                                            //context.watch<HdwState>().setItemInclusion(widget._name, value);
+                                          }
+                                          else {
+                                            // List<String> catItems = Provider.of<HdwState>(context, listen: false).getItems(widget._name);
+                                            // for (var item in catItems) {
+                                            //   Provider.of<HdwState>(context, listen: false).setItemInclusion(item, value);
+                                            //   //context.watch<HdwState>().setItemInclusion(item, value);
+                                            // }
+                                            Provider.of<HdwState>(context, listen: false).setCategoryInclusion(widget._name, value);
+                                          }
+                                        }
+                                        if (!widget._isChild) {
+                                          setState(() {
+
+                                          });
+                                          //                                Navigator.pushReplacementNamed(context, '/items', arguments: { 'catName': widget._name });
+                                          //Navigate is problematic when on category page
+                                        }
+                                      });
+                                    },
+                                  ),
+                                ]
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
                 ),
-              ],
+              ]
             ),
-          )
-        ]
-    );
-    }
+          // },
+        );
+
   }
 
 }

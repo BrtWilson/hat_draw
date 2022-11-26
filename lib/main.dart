@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:hat_draw_app/pages/init_page.dart';
 import 'package:provider/provider.dart';
 import 'package:hat_draw_app/hdw_classes/category_tile.dart';
 import 'package:hat_draw_app/hdw_classes/draw_button.dart';
 import 'package:hat_draw_app/pages/categories_page.dart';
 import 'package:hat_draw_app/pages/draw_page.dart';
 import 'package:hat_draw_app/pages/items_page.dart';
+import 'package:hat_draw_app/pages/init_page.dart';
 import 'hdw_state.dart';
 
 void main() {
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Hat Draw',
       theme: ThemeData(
-        primarySwatch: Colors.blueGrey,
+        primarySwatch: Colors.red,
       ),
       initialRoute: '/',
       routes: {

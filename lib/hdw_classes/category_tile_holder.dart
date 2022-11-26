@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hat_draw_app/hdw_classes/current_selection_tile.dart';
 import 'package:hat_draw_app/hdw_classes/new_category_tile.dart';
 
 import 'category_tile.dart';
@@ -25,7 +26,10 @@ class CategoryTileHolder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (_isNew) {
+    if (_name == " Current Selection ") {
+      return const CurrentSelectionTile();
+    }
+    else if (_isNew) {
       return NewCategoryTile(name: _name, parentCat: _parent, isChild: _isChild,);
     }
     else {

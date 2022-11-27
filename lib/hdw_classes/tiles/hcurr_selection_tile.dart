@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hat_draw_app/hdw_constants.dart';
 
-class CurrSelectionTile extends StatelessWidget {
-  const CurrSelectionTile({super.key,});
+class HCurrSelectionTile extends StatelessWidget {
+  const HCurrSelectionTile({super.key,});
 
   final String _name = HdwConstants.currentSelection;
 

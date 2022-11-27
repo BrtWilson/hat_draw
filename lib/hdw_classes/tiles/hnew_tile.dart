@@ -1,6 +1,3 @@
-
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hat_draw_app/hdw_constants.dart';
 import 'package:provider/provider.dart';
@@ -12,11 +9,11 @@ class HNewTile extends StatefulWidget {
     Key? key,
     required String name,
     bool isChild = false,
-    String parentCat = "",
+    String parent = "",
   })
       : _name = name,
         _isChild = isChild,
-        _parent = parentCat,
+        _parent = parent,
         super(key: key);
 
   final String _name;

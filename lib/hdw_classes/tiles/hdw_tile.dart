@@ -1,10 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hat_draw_app/hdw_classes/tiles/hcurr_selection_tile.dart';
+import 'package:hat_draw_app/hdw_classes/tiles/hstd_tile.dart';
 import 'package:hat_draw_app/hdw_constants.dart';
-
-import '../tiles/category_tile.dart';
-import '../tiles/current_selection_tile.dart';
-import 'new_category_tile.dart';
+import 'hnew_tile.dart';
 
 class HdwTile extends StatelessWidget {
   const HdwTile({
@@ -32,13 +30,13 @@ class HdwTile extends StatelessWidget {
     double bWidthRedux = ((_isChild) ? 30 : 0);
 
     if (_name == HdwConstants.currentSelection) {
-      bTile = const CurrentSelectionTile();
+      bTile = const HCurrSelectionTile();
     }
     else if (_isNew) {
-      bTile = NewCategoryTile(name: _name, parentCat: _parent, isChild: _isChild,);
+      bTile = HNewTile(name: _name, parent: _parent, isChild: _isChild,);
     }
     else {
-      bTile = CategoryTile(name: _name, parentCat: _parent, isChild: _isChild, isNew: _isNew,);
+      bTile = HStdTile(name: _name, parent: _parent, isChild: _isChild,);
     }
 
     return SizedBox(

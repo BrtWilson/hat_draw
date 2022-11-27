@@ -3,6 +3,8 @@ import 'package:hat_draw_app/hdw_constants.dart';
 import 'package:hat_draw_app/hdw_state.dart';
 import 'package:provider/provider.dart';
 
+import '../hdw_classes/hdw_title_bar.dart';
+
 class InitPage extends StatelessWidget {
   const InitPage({super.key});
 
@@ -12,16 +14,7 @@ class InitPage extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(
-          title: Row(
-            children: const [
-              Text(HdwConstants.title),
-              Image(
-                image: AssetImage('assets/tophat_icon.png'),
-                height: 30,
-                width: 30,
-              ),
-            ],
-          )
+          title: const HdwTitleBar(),
         ),
         body: Column(
           children: [

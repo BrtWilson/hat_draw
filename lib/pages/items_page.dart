@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:hat_draw_app/hdw_classes/draw_button.dart';
 import 'package:hat_draw_app/hdw_state.dart';
 
+import '../hdw_classes/hdw_title_bar.dart';
+
 class ItemsPage extends StatelessWidget {
   ItemsPage({super.key});
 
@@ -23,7 +25,7 @@ class ItemsPage extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(
-          title: const Text(HdwConstants.title),
+          title: const HdwTitleBar(),
         ),
         body: ItemsPageContent(catName: catName, catItems: itemList, ),
     );

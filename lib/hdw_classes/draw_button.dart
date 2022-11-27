@@ -21,8 +21,10 @@ class DrawButton extends StatelessWidget {
           label: Row(
             children: [
               Text(buttonText),
-              const Icon(
-                Icons.breakfast_dining_sharp
+              const Image(
+                image: AssetImage('assets/tophat_icon.png'),
+                height: 30,
+                width: 30,
               ),
             ]
           ),

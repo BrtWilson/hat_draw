@@ -7,7 +7,7 @@ class HdwConstants {
   static const String title = "Hat Draw";
 
   static const String currentSelection = " Current Selection ";
-  static const double tileHeight = 50.0;
+  static const double tileHeight = 60.0;
   static const double tileWidthRedux = 30.0;
   static const double fontSize = 18.0;
 
@@ -20,4 +20,5 @@ class HdwConstants {
   static const String clistArg = 'itemsList';
 
   static double stdTileWidth(BuildContext context) { return MediaQuery.of(context).size.width - 32.0;}
+  static double stdTextWidth(BuildContext context) { return MediaQuery.of(context).size.width - 122.0; }
 }

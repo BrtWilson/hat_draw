@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hat_draw_app/hdw_classes/tiles/current_selection_tile.dart';
-import 'package:hat_draw_app/hdw_classes/tiles/new_category_tile.dart';
+import 'package:hat_draw_app/hdw_classes/tiles/deprecated/new_category_tile.dart';
 
-import '../tiles/category_tile.dart';
+import 'category_tile.dart';
+import 'current_selection_tile.dart';
 
 class CategoryTileHolder extends StatelessWidget {
   CategoryTileHolder({

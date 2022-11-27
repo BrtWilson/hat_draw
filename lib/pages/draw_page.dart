@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:hat_draw_app/hdw_classes/draw_button.dart';
 import 'package:hat_draw_app/hdw_constants.dart';
 
+import '../hdw_classes/hdw_title_bar.dart';
+
 class DrawPage extends StatelessWidget {
   const DrawPage({super.key});
 
@@ -20,7 +22,7 @@ class DrawPage extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Hat Draw"),
+          title: const HdwTitleBar(),
         ),
         body: Column(
           children: [

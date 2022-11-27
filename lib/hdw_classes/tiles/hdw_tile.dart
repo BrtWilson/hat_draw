@@ -26,8 +26,12 @@ class HdwTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget bTile;
-    double bWidth = MediaQuery.of(context).size.width;
-    double bWidthRedux = ((_isChild) ? 30 : 0);
+    // double nonClickableWidth = 90.0;
+    // if (widget._isChild) nonClickableWidth += HdwConstants.tileWidthRedux;
+    // double clickableWidth = MediaQuery.of(context).size.width - nonClickableWidth;
+
+    double bWidth = HdwConstants.stdTileWidth(context);
+    double bWidthRedux = ((_isChild) ? HdwConstants.tileWidthRedux : 0);
 
     if (_name == HdwConstants.currentSelection) {
       bTile = const HCurrSelectionTile();

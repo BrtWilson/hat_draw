@@ -1,4 +1,6 @@
 
+import 'package:flutter/cupertino.dart';
+
 class HdwConstants {
   HdwConstants._();
 
@@ -16,4 +18,6 @@ class HdwConstants {
 
   static const String catArg = 'catName';
   static const String clistArg = 'itemsList';
+
+  static double stdTileWidth(BuildContext context) { return MediaQuery.of(context).size.width - 32.0;}
 }

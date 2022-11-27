@@ -8,13 +8,15 @@ class HCurrSelectionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double textWidth = HdwConstants.stdTileWidth(context) - 50.0;
+
     return Row(
       children: [
         InkWell(
           child:
             Container(
-              alignment: Alignment.centerRight,
-              width: MediaQuery.of(context).size.width,
+              alignment: Alignment.centerLeft,
+              width: textWidth,
               child:
                 Text(
                   _name,

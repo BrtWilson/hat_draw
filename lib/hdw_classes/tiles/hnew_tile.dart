@@ -28,9 +28,14 @@ class HNewTile extends StatefulWidget {
 class NewTileState extends State<HNewTile> {
   @override
   Widget build(BuildContext context) {
+    double nonClickableWidth = 50.0;
+    if (widget._isChild) nonClickableWidth += HdwConstants.tileWidthRedux;
+    double clickableWidth = MediaQuery.of(context).size.width - nonClickableWidth;
+
     return Row(
       children: [
         Container(
+          width: clickableWidth,
           color: Colors.grey[300],
           child:
             TextField(

@@ -29,6 +29,8 @@ class MyApp extends StatelessWidget {
       title: HdwConstants.title,
       theme: ThemeData(
         primarySwatch: Colors.red,
+        primaryColorDark: Colors.black,
+        primaryColorLight: Colors.red,
       ),
       initialRoute: '/',
       routes: {

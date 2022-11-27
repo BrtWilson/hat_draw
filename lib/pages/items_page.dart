@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hat_draw_app/hdw_classes/tiles/category_tile_holder.dart';
+import 'package:hat_draw_app/hdw_classes/tiles/hdw_tile.dart';
 import 'package:hat_draw_app/hdw_constants.dart';
 import 'package:provider/provider.dart';
-import 'package:hat_draw_app/hdw_classes/tiles/category_tile.dart';
 import 'package:hat_draw_app/hdw_classes/draw_button.dart';
 import 'package:hat_draw_app/hdw_state.dart';
 
@@ -53,8 +52,8 @@ class _ItemsPageState extends State<ItemsPageContent> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> items = widget._catItems.map((i_name) => CategoryTileHolder(name: i_name, isChild: true,)).toList();
-    items.add(CategoryTileHolder(name: "New Item", parentCat: widget._catName, isChild: true, isNew: true,));
+    List<Widget> items = widget._catItems.map((i_name) => HdwTile(name: i_name, isChild: true,)).toList();
+    items.add(HdwTile(name: "New Item", parent: widget._catName, isChild: true, isNew: true,));
 
     double keyOverflow = 0.0;
     if (MediaQuery.of(context).viewInsets.bottom != 0) keyOverflow = 208.0;
@@ -65,7 +64,7 @@ class _ItemsPageState extends State<ItemsPageContent> {
           child:
           Column(
             children: [
-              CategoryTile(name: widget._catName,),
+              HdwTile(name: widget._catName,),
               SizedBox(
                 height: 600 - keyOverflow,
                 width: 400,

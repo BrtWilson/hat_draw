@@ -7,7 +7,7 @@ class HdwConstants {
   static double tileWidthRedux = 30.0;
   static double fontSize = 18.0;
 
-      static String initPage =        '/init';
+  static String initPage =        '/init';
   static String categoriesPage =  '/categories';
   static String itemsPage =       '/items';
   static String drawPage =        '/draw';

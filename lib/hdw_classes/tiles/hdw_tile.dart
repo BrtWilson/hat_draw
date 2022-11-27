@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hat_draw_app/hdw_classes/hdw_constants.dart';
+import 'package:hat_draw_app/hdw_constants.dart';
 
 import '../tiles/category_tile.dart';
 import '../tiles/current_selection_tile.dart';

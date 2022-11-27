@@ -1,8 +1,5 @@
-
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hat_draw_app/hdw_classes/hdw_constants.dart';
+import 'package:hat_draw_app/hdw_constants.dart';
 import 'package:provider/provider.dart';
 
 import '../../hdw_state.dart';
@@ -39,7 +36,7 @@ class StdTileState extends State<HStdTile> {
   @override
   Widget build(BuildContext context) {
     if (widget._isEditing) {
-      return StdTileEditing(name: widget._name,  isChild: widget._isChild, edit: TileEdit);
+      return StdTileEditing(name: widget._name, parentCat: widget._parent,  isChild: widget._isChild, edit: TileEdit);
     }
     else {
       return StdTileStatic(name: widget._name, isChild: widget._isChild, edit: TileEdit);
@@ -59,17 +56,14 @@ class StdTileStatic extends StatelessWidget {
     Key? key,
     required String name,
     required edit,
-    String parentCat = "",
     bool isChild = false,
   })
       : _name = name,
         Edit_ = edit,
-        _parent = parentCat,
         _isChild = isChild,
         super(key: key);
 
   final String _name;
-  final String _parent;
   final bool _isChild;
   bool _isChecked = false;
   final Function Edit_;
@@ -232,9 +226,9 @@ class StdTileEditing extends StatelessWidget{
                     size: 25.0,
                   ),
                   onTap: () {
-                    Edit_(true);
-                    // todo: test edit capability later
-                    // consider adding a delete option while editing **
+                    String newText = _teController.text;
+                    Provider.of<HdwState>(context, listen: false).editItem(_parent, _name, newText);
+                    Edit_(false);  // Todo: verify
                   }
               ),
               InkWell(
@@ -244,9 +238,8 @@ class StdTileEditing extends StatelessWidget{
                     size: 25.0,
                   ),
                   onTap: () {
-                    Edit_(true);
-                    // todo: test edit capability later
-                    // consider adding a delete option while editing **
+                    Provider.of<HdwState>(context, listen: false).removeItem(_parent, _name);
+                    Edit_(false); // Todo: verify
                   }
               ),
             ]

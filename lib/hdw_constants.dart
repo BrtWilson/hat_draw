@@ -2,13 +2,15 @@
 class HdwConstants {
   HdwConstants._();
 
-  static String currentSelection = " Current Selection ";
-  static double tileHeight = 50.0;
-  static double tileWidthRedux = 30.0;
-  static double fontSize = 18.0;
+  static const String currentSelection = " Current Selection ";
+  static const double tileHeight = 50.0;
+  static const double tileWidthRedux = 30.0;
+  static const double fontSize = 18.0;
 
-  static String initPage =        '/init';
-  static String categoriesPage =  '/categories';
-  static String itemsPage =       '/items';
-  static String drawPage =        '/draw';
+  static const String initPage =        '/init';
+  static const String categoriesPage =  '/categories';
+  static const String itemsPage =       '/items';
+  static const String drawPage =        '/draw';
+
+  static const String catArg = 'catName';
 }

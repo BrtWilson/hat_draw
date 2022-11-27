@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:hat_draw_app/hdw_state.dart';
-import 'package:hat_draw_app/hdw_classes/new_category_tile.dart';
+import 'package:hat_draw_app/hdw_classes/tiles/new_category_tile.dart';
 
 class CategoryTile extends StatefulWidget {
   CategoryTile({

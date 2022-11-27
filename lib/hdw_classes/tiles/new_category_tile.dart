@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hat_draw_app/hdw_classes/category_tile.dart';
+import 'package:hat_draw_app/hdw_classes/tiles/category_tile.dart';
 import 'package:provider/provider.dart';
 import 'package:hat_draw_app/hdw_state.dart';
 
@@ -49,7 +49,6 @@ class _NewCategoryTileState extends State<NewCategoryTile> {
                             child:
                             TextField(
                               controller: widget._teController,
-                              //Todo: fix pixel overflow or switch "new item" to top
                               style: TextStyle(
                                 fontSize: 18.0,
                                 color: Colors.grey[600],
@@ -57,6 +56,7 @@ class _NewCategoryTileState extends State<NewCategoryTile> {
                               decoration: InputDecoration(
                                 hintText: widget._name,
                               ),
+                              // onEditingComplete: instead**
                               // onSubmitted: () {
                               //   String inputText = widget._teController.text;
                               //   setState(() {
@@ -130,7 +130,6 @@ class _NewCategoryTileState extends State<NewCategoryTile> {
         ]
     );
   }
-
 }
 
 

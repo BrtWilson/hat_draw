@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hat_draw_app/hdw_classes/tiles/category_tile_holder.dart';
-import 'package:hat_draw_app/hdw_classes/tiles/current_selection_tile.dart';
 import 'package:provider/provider.dart';
-import 'package:hat_draw_app/hdw_classes/tiles/category_tile.dart';
 import 'package:hat_draw_app/hdw_classes/draw_button.dart';
 import 'package:hat_draw_app/hdw_state.dart';
+
+import '../hdw_constants.dart';
 
 class CategoriesPage extends StatelessWidget {
   CategoriesPage({
@@ -15,7 +15,7 @@ class CategoriesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Widget> categories = context.watch<HdwState>().sCategories.map((c_name) => CategoryTileHolder(name: c_name, )).toList();
     categories.add(CategoryTileHolder(name: "New Category", isNew: true,));
-    categories.insert(0, CategoryTileHolder(name: " Current Selection "));
+    categories.insert(0, CategoryTileHolder(name: HdwConstants.currentSelection));
 
     double keyOverflow = 0.0;
     if (MediaQuery.of(context).viewInsets.bottom != 0) keyOverflow = 208;

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hat_draw_app/hdw_classes/tiles/category_tile_holder.dart';
+import 'package:hat_draw_app/hdw_constants.dart';
 import 'package:provider/provider.dart';
 import 'package:hat_draw_app/hdw_classes/tiles/category_tile.dart';
 import 'package:hat_draw_app/hdw_classes/draw_button.dart';
@@ -11,9 +12,9 @@ class ItemsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final arg = ModalRoute.of(context)?.settings.arguments as Map;
-    String catName = arg['catName'];
+    String catName = arg[HdwConstants.catArg];
     List<String> itemList;
-    if (catName == " Current Selection ") {
+    if (catName == HdwConstants.currentSelection) {
       itemList = context.watch<HdwState>().sCurrentItems;
     }
     else {
@@ -23,7 +24,7 @@ class ItemsPage extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Hat Draw"),
+          title: const Text(HdwConstants.title),
         ),
         body: ItemsPageContent(catName: catName, catItems: itemList, ),
     );

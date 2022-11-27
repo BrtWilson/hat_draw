@@ -1,5 +1,5 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:hat_draw_app/hdw_constants.dart';
 import 'package:hat_draw_app/hdw_state.dart';
 import 'package:provider/provider.dart';
 
@@ -8,11 +8,13 @@ class InitPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<String> bCurrList = context.watch<HdwState>().sCurrentItems;
+
     return Scaffold(
         appBar: AppBar(
           title: Row(
             children: const [
-              Text("Hat Draw"),
+              Text(HdwConstants.title),
               Image(
                 image: AssetImage('assets/tophat_icon.png'),
                 height: 30,
@@ -45,7 +47,7 @@ class InitPage extends StatelessWidget {
                             backgroundColor: Colors.red[900],
                             foregroundColor: Colors.black,
                             onPressed: () => {
-                              Navigator.pushNamed(context, '/categories',)
+                              Navigator.pushNamed(context, HdwConstants.categoriesPage,)
                             },
                           ),
                         ],
@@ -56,7 +58,7 @@ class InitPage extends StatelessWidget {
                     backgroundColor: Colors.red[900],
                     foregroundColor: Colors.black,
                     onPressed: () => {
-                      Navigator.pushNamed(context, "/draw", arguments: {'itemsList': context.watch<HdwState>().sCurrentItems } )
+                      Navigator.pushNamed(context, HdwConstants.drawPage, arguments: { HdwConstants.clistArg: bCurrList } )
                     },
                   ),
                 ],

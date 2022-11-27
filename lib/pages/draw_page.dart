@@ -1,14 +1,15 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:hat_draw_app/hdw_classes/draw_button.dart';
+import 'package:hat_draw_app/hdw_constants.dart';
 
 class DrawPage extends StatelessWidget {
-  DrawPage({super.key});
+  const DrawPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     final arg = ModalRoute.of(context)?.settings.arguments as Map;
-    List<String> itemsList = arg['itemsList'];
+    List<String> itemsList = arg[HdwConstants.clistArg];
     var selection = "Whoops! Nothing.";
     if (itemsList.isNotEmpty) {
       final rand = Random();
@@ -23,16 +24,16 @@ class DrawPage extends StatelessWidget {
         ),
         body: Column(
           children: [
-            Spacer(),
+            const Spacer(),
             Text(selection),
             Image.asset('assets/hat_draw_large.png'),
-            Spacer(),
-            Container(
+            const Spacer(),
+            SizedBox(
               height: 100,
               child: Column(
                   children: [
                     DrawButton(items: itemsList, is_redraw: true),
-                    Spacer(),
+                    const Spacer(),
                     FloatingActionButton.extended(
                       label: const Text("Return to Selection"),
                       backgroundColor: Colors.red[900],

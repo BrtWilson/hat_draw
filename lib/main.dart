@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hat_draw_app/hdw_constants.dart';
 import 'package:provider/provider.dart';
 import 'package:hat_draw_app/hdw_classes/tiles/category_tile.dart';
 import 'package:hat_draw_app/hdw_classes/draw_button.dart';
@@ -25,18 +26,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Hat Draw',
+      title: HdwConstants.title,
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
       initialRoute: '/',
       routes: {
-        '/init' : (context) => InitPage(),
-        '/categories': (context) => CategoriesPage(),
-        '/items': (context) => ItemsPage(),
-        '/draw': (context) => DrawPage(),
+        HdwConstants.initPage : (context) => InitPage(),
+        HdwConstants.categoriesPage: (context) => CategoriesPage(),
+        HdwConstants.itemsPage: (context) => ItemsPage(),
+        HdwConstants.drawPage: (context) => DrawPage(),
       },
-      home: InitPage(), //const MyHomePage(title: 'Hat Draw'),
+      home: const InitPage(), //const MyHomePage(title: 'Hat Draw'),
     );
   }
 }

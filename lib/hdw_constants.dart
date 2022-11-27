@@ -2,6 +2,8 @@
 class HdwConstants {
   HdwConstants._();
 
+  static const String title = "Hat Draw";
+
   static const String currentSelection = " Current Selection ";
   static const double tileHeight = 50.0;
   static const double tileWidthRedux = 30.0;
@@ -13,4 +15,5 @@ class HdwConstants {
   static const String drawPage =        '/draw';
 
   static const String catArg = 'catName';
+  static const String clistArg = 'itemsList';
 }

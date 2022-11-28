@@ -30,7 +30,7 @@ class InitPage extends StatelessWidget {
                     width: 300,
                   ),
                   const Spacer(),
-                  Container(
+                  SizedBox(
                     height: 60,
                     child:
                       Column(
@@ -47,6 +47,7 @@ class InitPage extends StatelessWidget {
                       ),
                   ),
                   FloatingActionButton.extended(
+                    key: const Key("InitDraw"),
                     label: const Text("Repeat last Draw"),
                     backgroundColor: Colors.red[900],
                     foregroundColor: Colors.black,

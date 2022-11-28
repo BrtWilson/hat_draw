@@ -28,14 +28,16 @@ class HNewTile extends StatefulWidget {
 class NewTileState extends State<HNewTile> {
   @override
   Widget build(BuildContext context) {
-    double nonClickableWidth = 90.0;
-    if (widget._isChild) nonClickableWidth += HdwConstants.tileWidthRedux;
-    double clickableWidth = MediaQuery.of(context).size.width - nonClickableWidth;
+    // double nonClickableWidth = 90.0;
+    // if (widget._isChild) nonClickableWidth += HdwConstants.tileWidthRedux;
+    // double clickableWidth = MediaQuery.of(context).size.width - nonClickableWidth;
+    double textWidth = HdwConstants.stdTextWidth(context) - 30;
 
     return Row(
       children: [
+        const Spacer(flex: 2),
         Container(
-          width: clickableWidth,
+          width: textWidth,
           color: Colors.grey[300],
           child:
             TextField(
@@ -49,6 +51,7 @@ class NewTileState extends State<HNewTile> {
               ),
             ),
         ),
+        const Spacer(),
         InkWell(
             child: Icon(
               Icons.add,

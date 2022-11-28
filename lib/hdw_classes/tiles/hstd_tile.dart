@@ -33,13 +33,17 @@ class StdTileState extends State<HStdTile> {
     });
   }
 
+  void Update(Function function) {
+    setState(() => function);
+  }
+
   @override
   Widget build(BuildContext context) {
     if (widget._isEditing) {
-      return StdTileEditing(name: widget._name, parentCat: widget._parent,  isChild: widget._isChild, edit: TileEdit);
+      return StdTileEditing(name: widget._name, parentCat: widget._parent,  isChild: widget._isChild, edit: TileEdit, update: Update,);
     }
     else {
-      return StdTileStatic(name: widget._name, isChild: widget._isChild, edit: TileEdit);
+      return StdTileStatic(name: widget._name, isChild: widget._isChild, edit: TileEdit, update: Update,);
     }
   }
 }
@@ -56,10 +60,12 @@ class StdTileStatic extends StatelessWidget {
     Key? key,
     required String name,
     required edit,
+    required update,
     bool isChild = false,
   })
       : _name = name,
         Edit_ = edit,
+        Update_ = update,
         _isChild = isChild,
         super(key: key);
 
@@ -67,34 +73,39 @@ class StdTileStatic extends StatelessWidget {
   final bool _isChild;
   bool _isChecked = false;
   final Function Edit_;
+  final Function Update_;
 
 
   @override
   Widget build(BuildContext context) {
-    double nonClickableWidth = 50.0;
-    if (_isChild) nonClickableWidth += HdwConstants.tileWidthRedux;
-    double clickableWidth = MediaQuery.of(context).size.width - nonClickableWidth;
+    //double nonClickableWidth = 50.0;
+    //if (_isChild) nonClickableWidth += HdwConstants.tileWidthRedux;
+    //double clickableWidth = MediaQuery.of(context).size.width - nonClickableWidth;
+    double textWidth = HdwConstants.stdTextWidth(context);
+    if (_isChild) textWidth -= 10.0;
 
     return Row(
       children: [
         Checkbox(
           value: _isChecked,
           onChanged: (value) {
-            if (value != null) {
-              _isChecked = value;
-              if (_isChild) {
-                Provider.of<HdwState>(context, listen: false).setItemInclusion(_name, value);
+            Update_(() {
+              if (value != null) {
+                _isChecked = value;
+                if (_isChild) {
+                  Provider.of<HdwState>(context, listen: false).setItemInclusion(_name, value);
+                }
+                else {
+                  Provider.of<HdwState>(context, listen: false).setCategoryInclusion(_name, value);
+                }
               }
-              else {
-                Provider.of<HdwState>(context, listen: false).setCategoryInclusion(_name, value);
-              }
-            }
+            });
           },
         ),
         InkWell(
           child: Container(
             alignment: Alignment.centerLeft,
-            width: clickableWidth,
+            width: textWidth,
             height: HdwConstants.tileHeight,
             child:
             Text(
@@ -108,7 +119,7 @@ class StdTileStatic extends StatelessWidget {
           onTap: () {
             if (!(_isChild)) {
               if (ModalRoute.of(context)?.settings.name != HdwConstants.itemsPage) {
-                Navigator.pushNamed(context, HdwConstants.itemsPage, arguments: { 'catName': _name });
+                Navigator.pushNamed(context, HdwConstants.itemsPage, arguments: { HdwConstants.catArg: _name });
               }
             }
           },
@@ -142,11 +153,13 @@ class StdTileEditing extends StatelessWidget{
     Key? key,
     required String name,
     required edit,
+    required update,
     String parentCat = "",
     bool isChild = false,
   })
       : _name = name,
         Edit_ = edit,
+        Update_ = update,
         _parent = parentCat,
         _isChild = isChild,
         super(key: key);
@@ -156,6 +169,7 @@ class StdTileEditing extends StatelessWidget{
   final bool _isChild;
   bool _isChecked = false;
   final Function Edit_;
+  final Function Update_;
   final TextEditingController _teController = TextEditingController();
 
   /*
@@ -172,12 +186,14 @@ class StdTileEditing extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     _teController.text = _name;
-    double nonClickableWidth = 50.0;
-    if (_isChild) nonClickableWidth += HdwConstants.tileWidthRedux;
-    double clickableWidth = MediaQuery.of(context).size.width - nonClickableWidth;
+    // double nonClickableWidth = 50.0;
+    // if (_isChild) nonClickableWidth += HdwConstants.tileWidthRedux;
+    // double clickableWidth = MediaQuery.of(context).size.width - nonClickableWidth;
+    double textWidth = HdwConstants.stdTextWidth(context);
 
     if (_isChild) {
       _isChecked = context.watch<HdwState>().sCurrentItems.contains(_name);
+      textWidth -= 11.0;
     }
     else {
       _isChecked = context.watch<HdwState>().checkForCategory(_name);
@@ -200,8 +216,9 @@ class StdTileEditing extends StatelessWidget{
         InkWell(
           child: Container(
             alignment: Alignment.centerLeft,
-            width: clickableWidth,
+            width: textWidth,
             height: HdwConstants.tileHeight,
+            color: Colors.grey[300],
             child:
               TextField(
                 controller: _teController,
@@ -227,9 +244,11 @@ class StdTileEditing extends StatelessWidget{
                   ),
                   onTap: () {
                     String newText = _teController.text;
-                    Provider.of<HdwState>(context, listen: false).editItem(_parent, _name, newText);
-                    Edit_(false);  // Todo: verify
-                  }
+                    Provider.of<HdwState>(context, listen: false).editItem(
+                        _parent, _name, newText);
+                    Edit_(false); // Todo: verify
+                    Update_(() {}); // TODO: ** not functioning...
+                  },
               ),
               InkWell(
                   child: Icon(

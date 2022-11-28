@@ -8,7 +8,7 @@ class HCurrSelectionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double textWidth = HdwConstants.stdTileWidth(context) - 50.0;
+    double textWidth = HdwConstants.stdTextWidth(context);
 
     return Row(
       children: [

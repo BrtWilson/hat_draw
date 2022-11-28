@@ -19,6 +19,6 @@ class HdwConstants {
   static const String catArg = 'catName';
   static const String clistArg = 'itemsList';
 
-  static double stdTileWidth(BuildContext context) { return MediaQuery.of(context).size.width - 32.0;}
-  static double stdTextWidth(BuildContext context) { return MediaQuery.of(context).size.width - 122.0; }
+  static double stdTileWidth(BuildContext context) { return MediaQuery.of(context).size.width; } //- 32.0;}
+  static double stdTextWidth(BuildContext context) { return MediaQuery.of(context).size.width - 140.0; }
 }

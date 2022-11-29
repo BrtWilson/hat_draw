@@ -18,7 +18,7 @@ class CurrentSelectionTile extends StatelessWidget {
                   child: Container(
                     alignment: Alignment.centerLeft,
                     width: 270,
-                    // todo: see if adding height: 20, helps with pressing
+                    // to-do: see if adding height: 20, helps with pressing
                     child:
                     Text(
                         name_,

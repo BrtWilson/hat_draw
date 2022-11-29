@@ -66,7 +66,7 @@ class _CategoryTileState extends State<CategoryTile> {
                             child: Container(
                               alignment: Alignment.centerLeft,
                               width: 270 - ((widget._isChild) ? 30 : 0),
-                              // todo: see if adding height: 20, helps with pressing
+                              // to-do: see if adding height: 20, helps with pressing
                               child:
                               Text(
                                   " ${widget._name} ",
@@ -95,7 +95,7 @@ class _CategoryTileState extends State<CategoryTile> {
                                         size: 25.0,
                                       ),
                                       onTap: () {
-                                        // todo: add edit capability later
+                                        // to-do: add edit capability later
                                         // consider adding a delete option while editing **
                                       }
                                   ),

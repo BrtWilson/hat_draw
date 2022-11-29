@@ -27,7 +27,13 @@ class DrawPage extends StatelessWidget {
         body: Column(
           children: [
             const Spacer(),
-            Text(selection),
+            Text(
+              selection,
+              style: TextStyle (
+                fontSize: 30.0,
+                color: Colors.blue[900]
+              ),
+            ),
             const Image(
               image: AssetImage('assets/hat_draw_large.png'),
               height: 320,

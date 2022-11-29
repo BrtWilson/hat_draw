@@ -49,6 +49,13 @@ class HdwState with ChangeNotifier {
     int index = _categories.indexOf(catName);
     //printCategories(catName);
     if (index == -1) return false;
+
+    if (_currentItems.contains(itemName)) {
+      int indexI = _currentItems.indexOf(itemName);
+      _currentItems.remove(itemName);
+      _currentItems.insert(indexI, newValue);
+    }
+
     CategoryContents currCat = _catMap[index];
     return currCat.modItem(itemName, newValue);
   }

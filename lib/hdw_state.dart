@@ -46,6 +46,7 @@ class HdwState with ChangeNotifier {
 
   bool editItem(String catName, String itemName, String newValue) {
     int index = _categories.indexOf(catName);
+    printCategories(catName);
     if (index == -1) return false;
     CategoryContents currCat = _catMap[index];
     return currCat.modItem(itemName, newValue);
@@ -53,8 +54,10 @@ class HdwState with ChangeNotifier {
 
   bool removeItem(String catName, String itemName) {
     int index = _categories.indexOf(catName);
+    printCategories(catName);
     if (index == -1) return false;
     CategoryContents currCat = _catMap[index];
+    currCat.printItems();
     return currCat.deleteItem(itemName);
   }
 
@@ -86,6 +89,14 @@ class HdwState with ChangeNotifier {
     List<String> catItems = _catMap[index].mItems;
     for (var item in catItems) {
       setItemInclusion(item, isInsert);
+    }
+  }
+
+  void printCategories(String target) {
+    print("DEBUGGING: ");
+    print("Target: $target");
+    for (var item in _categories) {
+      print(item);
     }
   }
 }

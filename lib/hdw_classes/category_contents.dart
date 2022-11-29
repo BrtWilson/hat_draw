@@ -32,4 +32,10 @@ class CategoryContents {
     mItems[index] = newVal;
     return true;
   }
+
+  void printItems() {
+    for (String item in mItems) {
+      print(item);
+    }
+  }
 }

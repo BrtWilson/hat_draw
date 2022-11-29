@@ -4,6 +4,13 @@ import 'package:provider/provider.dart';
 
 import '../../hdw_state.dart';
 
+class StdTileConstants {
+  static const String delete = "delete";
+  static const String add = "add";
+  static const String cancel = "cancel";
+}
+
+
 class HStdTile extends StatefulWidget {
   HStdTile({
     Key? key,
@@ -29,13 +36,28 @@ class StdTileState extends State<HStdTile> {
   void TileEdit(bool set) {
     setState(() {
       widget._isEditing = set;
-      //todo: check
     });
   }
 
-  void ItemUpdate(/**/) {
+  void ItemUpdate(String action, TextEditingController teController) {
     setState(() {
-      //Todo
+      if (StdTileConstants.add == action) {
+        String newText = teController.text;
+        if (!Provider.of<HdwState>(context, listen: false).editItem(
+            widget._parent, widget._name, newText)) {
+          print("FAILURE: Item not found");
+        }
+        widget._isEditing = false;
+      }
+      else if (StdTileConstants.cancel == action) {
+        widget._isEditing = false;
+      }
+      else if (StdTileConstants.delete == action) {
+        if (!Provider.of<HdwState>(context, listen: false).removeItem(widget._parent, widget._name)) {
+          print("FAILURE: Item not found");
+        }
+        widget._isEditing = false;
+      }
     });
   }
 
@@ -62,13 +84,6 @@ class StdTileState extends State<HStdTile> {
 }
 
 class StdTileStatic extends StatelessWidget {
-  /*
-  /Card(
-    checkbox
-    text
-    edit
-  /)
-   */
   StdTileStatic({
     Key? key,
     required String name,
@@ -166,7 +181,7 @@ class StdTileEditing extends StatelessWidget{
   })
       : _name = name,
         Edit_ = edit,
-        Update_ = update,
+        Action_ = update,
         _parent = parentCat,
         _isChild = isChild,
         super(key: key);
@@ -176,19 +191,8 @@ class StdTileEditing extends StatelessWidget{
   final bool _isChild;
   bool _isChecked = false;
   final Function Edit_;
-  final Function Update_;
+  final Function Action_;
   final TextEditingController _teController = TextEditingController();
-
-  /*
-  /Card(
-    greyed checkbox
-    editable text
-    edit (
-      save
-      delete
-    )
-  /)
-   */
 
   @override
   Widget build(BuildContext context) {
@@ -207,6 +211,18 @@ class StdTileEditing extends StatelessWidget{
 
     return Row(
       children: [
+        InkWell(
+            child: Icon(
+              Icons.delete,
+              color: Colors.grey[700],
+              size: 25.0,
+            ),
+            onTap: () {
+              _teController.text = "";
+              // Provider.of<HdwState>(context, listen: false).removeItem(_parent, _name);
+              Action_(StdTileConstants.delete, _teController); // Todo: verify
+            }
+        ),
         if (_isChecked)
           Icon(
             Icons.check_box_outlined,
@@ -222,7 +238,7 @@ class StdTileEditing extends StatelessWidget{
         InkWell(
           child: Container(
             alignment: Alignment.centerLeft,
-            width: textWidth,
+            width: textWidth - 30,
             height: HdwConstants.tileHeight,
             color: Colors.grey[300],
             child:
@@ -243,29 +259,30 @@ class StdTileEditing extends StatelessWidget{
           child: Row (
             children: [
               InkWell(
-                  child: Icon(
-                    Icons.add,
-                    color: Colors.grey[700],
-                    size: 25.0,
-                  ),
-                  onTap: () {
-                    String newText = _teController.text;
-                    Provider.of<HdwState>(context, listen: false).editItem(
-                        _parent, _name, newText);
-                    Edit_(false); // Todo: verify
-                    //Update_(() {}); // TODO: ** not functioning...
-                  },
+                child: Icon(
+                  Icons.add,
+                  color: Colors.grey[700],
+                  size: 25.0,
+                ),
+                onTap: () {
+                  // String newText = _teController.text;
+                  // Provider.of<HdwState>(context, listen: false).editItem(
+                  //     _parent, _name, newText);
+                  Action_(StdTileConstants.add, _teController); // TODO: ** not functioning...
+                },
               ),
               InkWell(
                   child: Icon(
-                    Icons.remove,
+                    Icons.cancel_outlined,
                     color: Colors.grey[700],
                     size: 25.0,
                   ),
                   onTap: () {
-                    Provider.of<HdwState>(context, listen: false).removeItem(_parent, _name);
-                    Edit_(false); // Todo: verify
-                  }
+                  //   String newText = _teController.text;
+                  //   Provider.of<HdwState>(context, listen: false).editItem(
+                  //       _parent, _name, newText);
+                    Action_(StdTileConstants.cancel, _teController); // TODO: ** not functioning...
+                  },
               ),
             ]
           ),

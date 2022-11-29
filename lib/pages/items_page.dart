@@ -54,7 +54,7 @@ class _ItemsPageState extends State<ItemsPageContent> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> items = widget._catItems.map((i_name) => HdwTile(name: i_name, isChild: true,)).toList();
+    List<Widget> items = widget._catItems.map((i_name) => HdwTile(name: i_name, parent: widget._catName, isChild: true,)).toList();
     items.add(HdwTile(name: "New Item", parent: widget._catName, isChild: true, isNew: true,));
 
     double keyOverflow = 0.0;

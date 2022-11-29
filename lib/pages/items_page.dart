@@ -7,8 +7,15 @@ import 'package:hat_draw_app/hdw_state.dart';
 
 import '../hdw_classes/hdw_title_bar.dart';
 
+class ItemPageConstants {
+  static const String clearSelection = "clear selection";
+  static const String addCategory = "add";
+  static const String removeCategory = "remove category";
+}
+
+
 class ItemsPage extends StatelessWidget {
-  ItemsPage({super.key});
+  const ItemsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +59,20 @@ class ItemsPageContent extends StatefulWidget {
 
 class _ItemsPageState extends State<ItemsPageContent> {
 
+  void Action(String action) {
+    setState(() {
+      if (ItemPageConstants.addCategory == action) {
+        Provider.of<HdwState>(context, listen: false).setCategoryInclusion(widget._catName, true);
+      }
+      else if (ItemPageConstants.removeCategory == action) {
+        Provider.of<HdwState>(context, listen: false).setCategoryInclusion(widget._catName, false);
+      }
+      else if (ItemPageConstants.clearSelection == action) {
+        Provider.of<HdwState>(context, listen: false).clearSelection();
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     List<Widget> items = widget._catItems.map((i_name) => HdwTile(name: i_name, parent: widget._catName, isChild: true,)).toList();
@@ -66,7 +87,8 @@ class _ItemsPageState extends State<ItemsPageContent> {
           child:
           Column(
             children: [
-              HdwTile(name: widget._catName,),
+              //HdwTile(name: widget._catName,),
+              ItemsPageBar(catName: widget._catName, update: Action),
               SizedBox(
                 height: 600 - keyOverflow,
                 width: 400,
@@ -83,4 +105,90 @@ class _ItemsPageState extends State<ItemsPageContent> {
           )
       );
   }
+}
+
+
+class ItemsPageBar extends StatelessWidget {
+  const ItemsPageBar({
+    Key? key,
+    required String catName,
+    required update,
+  })
+      : _catName = catName,
+        Action_ = update,
+        super(key: key);
+
+  final String _catName;
+  final Function Action_;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: HdwConstants.stdTileWidth(context),
+      height: HdwConstants.tileHeight,
+      color: Colors.red[700],
+      child: Row(
+        children: [
+          Text(
+              " $_catName ",
+              style: const TextStyle(
+                  fontSize: HdwConstants.fontSize + 2.0,
+                  color: Colors.black
+              )
+          ),
+          const Spacer(flex: 2,),
+          Container(
+            color: Colors.white38,
+            child: Row(
+              children: [
+                if (HdwConstants.currentSelection != _catName)
+                  InkWell(
+                    child: Icon(
+                      Icons.playlist_add,
+                      color: Colors.green[800],
+                      size: 25.0,
+                    ),
+                    onTap: () {
+                      Action_(ItemPageConstants.addCategory);
+                    },
+                    onLongPress: () {
+
+                    },
+                  ),
+                if (HdwConstants.currentSelection != _catName)
+                  InkWell(
+                    child: Icon(
+                      Icons.playlist_remove,
+                      color: Colors.red[800],
+                      size: 25.0,
+                    ),
+                    onTap: () {
+                      Action_(ItemPageConstants.removeCategory);
+                    },
+                    onLongPress: () {
+
+                    },
+                  ),
+                InkWell(
+                  child: const Icon(
+                    Icons.delete_sweep_outlined,
+                    color: Colors.black,
+                    size: 25.0,
+                  ),
+                  onTap: () {
+                    Action_(ItemPageConstants.clearSelection);
+                  },
+                  onLongPress: () {
+
+                  },
+                ),
+              ],
+            ),
+          ),
+          const Spacer(),
+        ]
+      ),
+    );
+  }
+
 }

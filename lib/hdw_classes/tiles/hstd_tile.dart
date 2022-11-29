@@ -100,7 +100,7 @@ class StdTileStatic extends StatelessWidget {
   })
       : _name = name,
         Edit_ = edit,
-        Update_ = update,
+        CBUpdate_ = update,
         _isChild = isChild,
         super(key: key);
 
@@ -108,7 +108,7 @@ class StdTileStatic extends StatelessWidget {
   final bool _isChild;
   bool _isChecked = false;
   final Function Edit_;
-  final Function Update_;
+  final Function CBUpdate_;
 
 
   @override
@@ -128,7 +128,7 @@ class StdTileStatic extends StatelessWidget {
           value: _isChecked,
           onChanged: (value) {
             _isChecked = value!;
-            Update_(value);
+            CBUpdate_(value);
           },
         ),
         InkWell(
@@ -165,8 +165,6 @@ class StdTileStatic extends StatelessWidget {
                   ),
                   onTap: () {
                     Edit_(true);
-                    // todo: test edit capability later
-                    // consider adding a delete option while editing **
                   }
               ),
             ]
@@ -227,7 +225,7 @@ class StdTileEditing extends StatelessWidget{
             onTap: () {
               _teController.text = "";
               // Provider.of<HdwState>(context, listen: false).removeItem(_parent, _name);
-              Action_(StdTileConstants.delete, _teController); // Todo: verify
+              Action_(StdTileConstants.delete, _teController);
             }
         ),
         if (_isChecked)
@@ -275,7 +273,7 @@ class StdTileEditing extends StatelessWidget{
                   // String newText = _teController.text;
                   // Provider.of<HdwState>(context, listen: false).editItem(
                   //     _parent, _name, newText);
-                  Action_(StdTileConstants.add, _teController); // TODO: ** not functioning...
+                  Action_(StdTileConstants.add, _teController);
                 },
               ),
               InkWell(
@@ -288,7 +286,7 @@ class StdTileEditing extends StatelessWidget{
                   //   String newText = _teController.text;
                   //   Provider.of<HdwState>(context, listen: false).editItem(
                   //       _parent, _name, newText);
-                    Action_(StdTileConstants.cancel, _teController); // TODO: ** not functioning...
+                    Action_(StdTileConstants.cancel, _teController);
                   },
               ),
             ]

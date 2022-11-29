@@ -102,4 +102,19 @@ class HdwState with ChangeNotifier {
       print(item);
     }
   }
+
+  void clearSelection() {
+    _currentItems = [];
+    _currentFullCategories = [];
+  }
 }
+
+
+
+/*
+Potential Settings List:
+- Choose whether deleting an item removes it from selection
+- Choose color (add a christmas option)
+- Choose whether to have a pop-up for deleting an item
+
+ */

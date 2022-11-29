@@ -1,5 +1,5 @@
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class HdwConstants {
   HdwConstants._();
@@ -10,6 +10,7 @@ class HdwConstants {
   static const double tileHeight = 60.0;
   static const double tileWidthRedux = 30.0;
   static const double fontSize = 18.0;
+  static Color? fontColor = Colors.grey[700];
 
   static const String initPage =        '/init';
   static const String categoriesPage =  '/categories';

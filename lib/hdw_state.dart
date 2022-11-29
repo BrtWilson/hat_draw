@@ -45,19 +45,21 @@ class HdwState with ChangeNotifier {
   }
 
   bool editItem(String catName, String itemName, String newValue) {
+    print("Editing item: $itemName");
     int index = _categories.indexOf(catName);
-    printCategories(catName);
+    //printCategories(catName);
     if (index == -1) return false;
     CategoryContents currCat = _catMap[index];
     return currCat.modItem(itemName, newValue);
   }
 
   bool removeItem(String catName, String itemName) {
+    print("Removing item: $itemName");
     int index = _categories.indexOf(catName);
-    printCategories(catName);
+    //printCategories(catName);
     if (index == -1) return false;
     CategoryContents currCat = _catMap[index];
-    currCat.printItems();
+    //currCat.printItems();
     return currCat.deleteItem(itemName);
   }
 

@@ -41,23 +41,30 @@ class StdTileState extends State<HStdTile> {
 
   void ItemUpdate(String action, TextEditingController teController) {
     setState(() {
-      if (StdTileConstants.add == action) {
-        String newText = teController.text;
-        if (!Provider.of<HdwState>(context, listen: false).editItem(
-            widget._parent, widget._name, newText)) {
-          print("FAILURE: Item not found");
+      if (StdTileConstants.cancel != action) {
+        if (StdTileConstants.add == action) {
+          String newText = teController.text;
+          if (!Provider.of<HdwState>(context, listen: false).editItem(
+              widget._parent, widget._name, newText)) {
+            print("FAILURE: Item not found");
+          }
+          else
+            print("Edited item");
         }
-        widget._isEditing = false;
-      }
-      else if (StdTileConstants.cancel == action) {
-        widget._isEditing = false;
-      }
-      else if (StdTileConstants.delete == action) {
-        if (!Provider.of<HdwState>(context, listen: false).removeItem(widget._parent, widget._name)) {
-          print("FAILURE: Item not found");
+        else if (StdTileConstants.delete == action) {
+          if (!Provider.of<HdwState>(context, listen: false).removeItem(
+              widget._parent, widget._name)) {
+            print("FAILURE: Item not found");
+          }
+          else
+            print("Deleted item");
         }
-        widget._isEditing = false;
+        if (widget._isChild) {
+          Navigator.pushReplacementNamed(context, HdwConstants.itemsPage,
+              arguments: { HdwConstants.catArg: widget._parent});
+        }
       }
+      widget._isEditing = false;
     });
   }
 

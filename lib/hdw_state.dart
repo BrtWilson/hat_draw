@@ -59,6 +59,7 @@ class HdwState with ChangeNotifier {
     //printCategories(catName);
     if (index == -1) return false;
     CategoryContents currCat = _catMap[index];
+    _currentItems.remove(itemName);
     //currCat.printItems();
     return currCat.deleteItem(itemName);
   }

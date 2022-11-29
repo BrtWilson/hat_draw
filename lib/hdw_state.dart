@@ -15,7 +15,7 @@ class HdwState with ChangeNotifier {
 
   bool addItem(String catName, String item) {
     int index = _categories.indexOf(catName);
-    if (index == -1) return false;
+    if (-1 == index) return false;
     CategoryContents currCat = _catMap[index];
     return currCat.addItem(item);
   }
@@ -48,7 +48,7 @@ class HdwState with ChangeNotifier {
     print("Editing item: $itemName");
     int index = _categories.indexOf(catName);
     //printCategories(catName);
-    if (index == -1) return false;
+    if (-1 == index) return false;
 
     if (_currentItems.contains(itemName)) {
       int indexI = _currentItems.indexOf(itemName);
@@ -64,7 +64,7 @@ class HdwState with ChangeNotifier {
     print("Removing item: $itemName");
     int index = _categories.indexOf(catName);
     //printCategories(catName);
-    if (index == -1) return false;
+    if (-1 == index) return false;
     CategoryContents currCat = _catMap[index];
     _currentItems.remove(itemName);
     //currCat.printItems();
@@ -84,6 +84,24 @@ class HdwState with ChangeNotifier {
 
   bool checkForCategory(String catName) {
     return _currentFullCategories.contains(catName);
+  }
+
+  bool editCategory(String category, String newText) {
+    int index = _categories.indexOf(category);
+    if (-1 == index) return false;
+    _categories.remove(category);
+    _categories.insert(index, newText);
+    if (_currentFullCategories.contains(category)) {
+      index = _currentFullCategories.indexOf(category);
+      _currentFullCategories.remove(category);
+      _currentFullCategories.insert(index, newText);
+    }
+    return true;
+  }
+
+  bool deleteCategory(String category) {
+    return false;
+    //Todo
   }
 
   void setCategoryInclusion(String catName, bool isInsert) {

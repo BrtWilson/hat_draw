@@ -6,7 +6,7 @@ import '../../hdw_state.dart';
 
 class StdTileConstants {
   static const String delete = "delete";
-  static const String add = "add";
+  static const String edit = "edit";
   static const String cancel = "cancel";
 }
 
@@ -42,22 +42,30 @@ class StdTileState extends State<HStdTile> {
   void ItemUpdate(String action, TextEditingController teController) {
     setState(() {
       if (StdTileConstants.cancel != action) {
-        if (StdTileConstants.add == action) {
+        if (StdTileConstants.edit == action) {
           String newText = teController.text;
-          if (!Provider.of<HdwState>(context, listen: false).editItem(
-              widget._parent, widget._name, newText)) {
-            print("FAILURE: Item not found");
+          bool success = false;
+          if (widget._isChild) {
+            success = Provider.of<HdwState>(context, listen: false).editItem(
+                widget._parent, widget._name, newText);
           }
-          else
-            print("Edited item");
+          else {
+            Provider.of<HdwState>(context, listen: false).editCategory(
+                widget._parent, newText);
+          }
+          if (!success) print("Failed to edit item.");
         }
         else if (StdTileConstants.delete == action) {
-          if (!Provider.of<HdwState>(context, listen: false).removeItem(
-              widget._parent, widget._name)) {
-            print("FAILURE: Item not found");
+          bool success = false;
+          // TODO: correct to account for <item vs category> (only allowing if category is empty, or after verification)
+          if (widget._isChild) {
+            success = Provider.of<HdwState>(context, listen: false).removeItem(
+                widget._parent, widget._name);
           }
-          else
-            print("Deleted item");
+          else {
+            print("Category Deletion not implemented");
+          }
+          if (!success) print("Failed to delete item.");
         }
         if (widget._isChild) {
           Navigator.pushReplacementNamed(context, HdwConstants.itemsPage,
@@ -273,7 +281,7 @@ class StdTileEditing extends StatelessWidget{
                   // String newText = _teController.text;
                   // Provider.of<HdwState>(context, listen: false).editItem(
                   //     _parent, _name, newText);
-                  Action_(StdTileConstants.add, _teController);
+                  Action_(StdTileConstants.edit, _teController);
                 },
               ),
               InkWell(

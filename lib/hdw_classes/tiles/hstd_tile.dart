@@ -33,17 +33,30 @@ class StdTileState extends State<HStdTile> {
     });
   }
 
-  void Update(Function function) {
-    setState(() => function);
+  void ItemUpdate(/**/) {
+    setState(() {
+      //Todo
+    });
+  }
+
+  void Checkbox(bool value) {
+    setState(() {
+      if (widget._isChild) {
+        Provider.of<HdwState>(context, listen: false).setItemInclusion(widget._name, value);
+      }
+      else {
+        Provider.of<HdwState>(context, listen: false).setCategoryInclusion(widget._name, value);
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     if (widget._isEditing) {
-      return StdTileEditing(name: widget._name, parentCat: widget._parent,  isChild: widget._isChild, edit: TileEdit, update: Update,);
+      return StdTileEditing(name: widget._name, parentCat: widget._parent,  isChild: widget._isChild, edit: TileEdit, update: ItemUpdate,);
     }
     else {
-      return StdTileStatic(name: widget._name, isChild: widget._isChild, edit: TileEdit, update: Update,);
+      return StdTileStatic(name: widget._name, isChild: widget._isChild, edit: TileEdit, update: Checkbox,);
     }
   }
 }
@@ -78,28 +91,22 @@ class StdTileStatic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //double nonClickableWidth = 50.0;
-    //if (_isChild) nonClickableWidth += HdwConstants.tileWidthRedux;
-    //double clickableWidth = MediaQuery.of(context).size.width - nonClickableWidth;
     double textWidth = HdwConstants.stdTextWidth(context);
-    if (_isChild) textWidth -= 10.0;
+    if (_isChild) {
+      textWidth -= 10.0;
+      _isChecked = context.watch<HdwState>().sCurrentItems.contains(_name);
+    }
+    else {
+      _isChecked = context.watch<HdwState>().checkForCategory(_name);
+    }
 
     return Row(
       children: [
         Checkbox(
           value: _isChecked,
           onChanged: (value) {
-            Update_(() {
-              if (value != null) {
-                _isChecked = value;
-                if (_isChild) {
-                  Provider.of<HdwState>(context, listen: false).setItemInclusion(_name, value);
-                }
-                else {
-                  Provider.of<HdwState>(context, listen: false).setCategoryInclusion(_name, value);
-                }
-              }
-            });
+            _isChecked = value!;
+            Update_(value);
           },
         ),
         InkWell(
@@ -190,7 +197,6 @@ class StdTileEditing extends StatelessWidget{
     // if (_isChild) nonClickableWidth += HdwConstants.tileWidthRedux;
     // double clickableWidth = MediaQuery.of(context).size.width - nonClickableWidth;
     double textWidth = HdwConstants.stdTextWidth(context);
-
     if (_isChild) {
       _isChecked = context.watch<HdwState>().sCurrentItems.contains(_name);
       textWidth -= 11.0;
@@ -247,7 +253,7 @@ class StdTileEditing extends StatelessWidget{
                     Provider.of<HdwState>(context, listen: false).editItem(
                         _parent, _name, newText);
                     Edit_(false); // Todo: verify
-                    Update_(() {}); // TODO: ** not functioning...
+                    //Update_(() {}); // TODO: ** not functioning...
                   },
               ),
               InkWell(

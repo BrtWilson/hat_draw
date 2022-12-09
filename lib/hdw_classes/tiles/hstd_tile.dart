@@ -273,7 +273,7 @@ class StdTileEditing extends StatelessWidget{
             children: [
               InkWell(
                 child: Icon(
-                  Icons.add,
+                  Icons.check,
                   color: Colors.grey[700],
                   size: 25.0,
                 ),
@@ -286,7 +286,7 @@ class StdTileEditing extends StatelessWidget{
               ),
               InkWell(
                   child: Icon(
-                    Icons.cancel_outlined,
+                    Icons.close,
                     color: Colors.grey[700],
                     size: 25.0,
                   ),

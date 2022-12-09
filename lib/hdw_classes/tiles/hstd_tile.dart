@@ -42,6 +42,7 @@ class StdTileState extends State<HStdTile> {
   void ItemUpdate(String action, TextEditingController teController) {
     setState(() {
       if (StdTileConstants.cancel != action) {
+        // TODO: set checking whether on current selection page
         if (StdTileConstants.edit == action) {
           String newText = teController.text;
           bool success = false;
@@ -78,6 +79,7 @@ class StdTileState extends State<HStdTile> {
 
   void Checkbox(bool value) {
     setState(() {
+      // TODO: set checking whether on current selection page
       if (widget._isChild) {
         Provider.of<HdwState>(context, listen: false).setItemInclusion(widget._name, value);
       }

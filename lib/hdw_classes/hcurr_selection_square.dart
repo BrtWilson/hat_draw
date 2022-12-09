@@ -40,7 +40,7 @@ class HCurrSelectionSquare extends StatelessWidget {
                           ),
                         ),
                         Icon(
-                          Icons.edit,
+                          Icons.ads_click,
                           color: Colors.grey[800],
                           size: 20.0,
                         ),

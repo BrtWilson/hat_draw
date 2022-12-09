@@ -5,13 +5,16 @@ class HdwState with ChangeNotifier {
   List<String> _categories = ["Eating Out", "Board Games"];
   List<CategoryContents> _catMap = [
     CategoryContents("Eating Out", ["Wendy's", "Taco Baco", "Quiero Mas", "Good Move Cafe"]),
-    CategoryContents("Board Games", ["Skull", "Doom", "Dead of Winter", "Betrayal", "San Guo Sha", "Binding of Isaac"])];
+    CategoryContents("Board Games", ["Skull", "Doom", "Dead of Winter", "Betrayal", "San Guo Sha", "Binding of Isaac"])
+  ];
   List<String> _currentItems = []; // "Woops! Nothing."
   List<String> _currentFullCategories = [];
+  List<String> _previousSelection = [];
 
   List<String> get sCategories => _categories;
   List<CategoryContents> get sCatContents => _catMap;
   List<String> get sCurrentItems => _currentItems;
+  List<String> get sLastSelection => _previousSelection;
 
   bool addItem(String catName, String item) {
     int index = _categories.indexOf(catName);
@@ -131,6 +134,14 @@ class HdwState with ChangeNotifier {
   void clearSelection() {
     _currentItems = [];
     _currentFullCategories = [];
+  }
+
+  int itemCount() {
+    return _currentItems.length;
+  }
+
+  saveAsHistory() {
+    _previousSelection = _currentItems;
   }
 }
 

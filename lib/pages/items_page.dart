@@ -123,6 +123,8 @@ class ItemsPageBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double iconsWidth = 60;
+
     return Container(
       width: HdwConstants.stdTileWidth(context),
       height: HdwConstants.tileHeight,
@@ -136,18 +138,24 @@ class ItemsPageBar extends StatelessWidget {
                   color: Colors.black
               )
           ),
-          const Spacer(flex: 2,),
-          Container(
-            color: Colors.white38,
+          const Spacer(flex: 4,),
+          SizedBox(
+            width: iconsWidth,
+//            color: Colors.white38,
             child: Row(
               children: [
                 if (HdwConstants.currentSelection != _catName)
                   InkWell(
-                    child: Icon(
-                      Icons.playlist_add,
-                      color: Colors.green[800],
-                      size: 25.0,
-                    ),
+                    child:
+                      Container(
+                        color: Colors.white38,
+                        child:
+                          Icon(
+                            Icons.playlist_add,
+                            color: Colors.green[800],
+                            size: 25.0,
+                          ),
+                      ),
                     onTap: () {
                       Action_(ItemPageConstants.addCategory);
                     },
@@ -155,12 +163,17 @@ class ItemsPageBar extends StatelessWidget {
 
                     },
                   ),
+                const Spacer(),
                 if (HdwConstants.currentSelection != _catName)
                   InkWell(
-                    child: Icon(
-                      Icons.playlist_remove,
-                      color: Colors.red[800],
-                      size: 25.0,
+                    child:
+                    Container(
+                      color: Colors.white38,
+                      child: Icon(
+                        Icons.playlist_remove,
+                        color: Colors.red[800],
+                        size: 25.0,
+                      ),
                     ),
                     onTap: () {
                       Action_(ItemPageConstants.removeCategory);
@@ -169,19 +182,25 @@ class ItemsPageBar extends StatelessWidget {
 
                     },
                   ),
-                InkWell(
-                  child: const Icon(
-                    Icons.delete_sweep_outlined,
-                    color: Colors.black,
-                    size: 25.0,
-                  ),
-                  onTap: () {
-                    Action_(ItemPageConstants.clearSelection);
-                  },
-                  onLongPress: () {
+                if (HdwConstants.currentSelection == _catName)
+                  InkWell(
+                    child:
+                      Container(
+                      color: Colors.white38,
+                      child:
+                        const Icon(
+                          Icons.delete_sweep_outlined,
+                          color: Colors.black,
+                          size: 25.0,
+                        ),
+                      ),
+                    onTap: () {
+                      Action_(ItemPageConstants.clearSelection);
+                    },
+                    onLongPress: () {
 
-                  },
-                ),
+                    },
+                  ),
               ],
             ),
           ),

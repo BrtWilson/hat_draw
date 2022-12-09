@@ -36,6 +36,7 @@ class InitPage extends StatelessWidget {
                       Column(
                         children: [
                           FloatingActionButton.extended(
+                            heroTag: "prepare draw",
                             label: const Text("Prepare a Draw"),
                             backgroundColor: Colors.red[900],
                             foregroundColor: Colors.black,
@@ -47,7 +48,7 @@ class InitPage extends StatelessWidget {
                       ),
                   ),
                   FloatingActionButton.extended(
-                    key: const Key("InitDraw"),
+                    heroTag: "init draw",
                     label: const Text("Repeat last Draw"),
                     backgroundColor: Colors.red[900],
                     foregroundColor: Colors.black,

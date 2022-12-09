@@ -83,8 +83,7 @@ class StdTileState extends State<HStdTile> {
   void Checkbox(bool value) {
     setState(() {
       if (widget._isChild) {
-        bool notifying = (HdwConstants.currentSelection == widget._name);
-        Provider.of<HdwState>(context, listen: false).setItemInclusion(widget._name, value, notifying);
+        Provider.of<HdwState>(context, listen: false).setItemInclusion(widget._name, value, true);
       }
       else {
         Provider.of<HdwState>(context, listen: false).setCategoryInclusion(widget._name, value);

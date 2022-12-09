@@ -3,7 +3,6 @@ import 'package:hat_draw_app/hdw_classes/hdw_page_footer.dart';
 import 'package:hat_draw_app/hdw_classes/tiles/hdw_tile.dart';
 import 'package:hat_draw_app/hdw_constants.dart';
 import 'package:provider/provider.dart';
-import 'package:hat_draw_app/hdw_classes/draw_button.dart';
 import 'package:hat_draw_app/hdw_state.dart';
 
 import '../hdw_classes/hdw_title_bar.dart';
@@ -24,20 +23,33 @@ class ItemsPage extends StatelessWidget {
     String catName = arg[HdwConstants.catArg];
     List<String> itemList;
     if (catName == HdwConstants.currentSelection) {
-      itemList = context.watch<HdwState>().sCurrentItems;
+      itemList = context.watch<HdwState>().getCurrItemsStatic();
     }
     else {
+      //context.watch<HdwState>().leaveCurrSelPage();
       int index = context.watch<HdwState>().sCategories.indexOf(catName);
       itemList = context.watch<HdwState>().sCatContents[index].mItems;
     }
 
-    return Scaffold(
+    // return Scaffold(
+    //     appBar: AppBar(
+    //       title: const HdwTitleBar(),
+    //     ),
+    //     body: ItemsPageContent(catName: catName, catItems: itemList, ),
+    // );
+
+    return WillPopScope(
+      onWillPop: () async {
+        Provider.of<HdwState>(context, listen: false).leaveCurrSelPage();
+        return true ;
+      },
+      child: Scaffold(
         appBar: AppBar(
           title: const HdwTitleBar(),
         ),
         body: ItemsPageContent(catName: catName, catItems: itemList, ),
+      )
     );
-
   }
 }
 
@@ -79,6 +91,7 @@ class _ItemsPageState extends State<ItemsPageContent> {
     List<Widget> items = widget._catItems.map((i_name) => HdwTile(name: i_name, parent: widget._catName, isChild: true,)).toList();
     items.add(HdwTile(name: "New Item", parent: widget._catName, isChild: true, isNew: true,));
 
+    bool currSelPage = (HdwConstants.currentSelection == widget._catName);
     double keyOverflow = 0.0;
     if (MediaQuery.of(context).viewInsets.bottom != 0) keyOverflow = 208.0;
 
@@ -101,7 +114,8 @@ class _ItemsPageState extends State<ItemsPageContent> {
                   children: items,
                 ),
               ),
-              if (keyOverflow == 0.0) HdwPageFooter(), //DrawButton(items: context.watch<HdwState>().sCurrentItems),
+              if (0.0 == keyOverflow) HdwPageFooter(currSelPage: currSelPage,),
+              //if ((currSelPage) && (0.0 == keyOverflow)) DrawButton(items: context.watch<HdwState>().sCurrentItems),
             ]
           )
       );

@@ -39,7 +39,7 @@ class CategoriesPage extends StatelessWidget {
                     children: categories, //context.watch<HdwState>().sCategories.map((c_name) => CategoryTile(name: c_name, checkedItems: context.watch<HdwState>().sCurrentItems, setInclusion: context.watch<HdwState>().setItemInclusion)).toList(),
                 ),
             ),
-            if (keyOverflow == 0.0) const HdwPageFooter(), //DrawButton(items: context.watch<HdwState>().sCurrentItems),
+            if (keyOverflow == 0.0) const HdwPageFooter(currSelPage: false,), //DrawButton(items: context.watch<HdwState>().sCurrentItems),
           ]
         ),
     );

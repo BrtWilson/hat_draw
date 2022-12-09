@@ -8,17 +8,21 @@ import 'draw_button.dart';
 class HdwPageFooter extends StatelessWidget {
   const HdwPageFooter({
     Key? key,
-  }) : super(key: key);
+    required bool currSelPage,
+  }) : _currSelPage = currSelPage, super(key: key);
+
+  final bool _currSelPage;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const Spacer(flex: 2,),
+        const Spacer(),
+        if (!_currSelPage) const Spacer(),
         DrawButton(items: context.watch<HdwState>().sCurrentItems),
         const Spacer(),
-        const HCurrSelectionSquare(),
-        const Spacer(),
+        if (!_currSelPage) const HCurrSelectionSquare(),
+        if (!_currSelPage) const Spacer(),
       ],
     );
   }

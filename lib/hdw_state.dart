@@ -7,13 +7,15 @@ class HdwState with ChangeNotifier {
     CategoryContents("Eating Out", ["Wendy's", "Taco Baco", "Quiero Mas", "Good Move Cafe"]),
     CategoryContents("Board Games", ["Skull", "Doom", "Dead of Winter", "Betrayal", "San Guo Sha", "Binding of Isaac"])
   ];
-  List<String> _currentItems = []; // "Woops! Nothing."
+  List<String> _currentItemsSelected = []; // "Woops! Nothing."
   List<String> _currentFullCategories = [];
   List<String> _previousSelection = [];
+  bool onCurrSelPage = false;
+  List<String> _currentItemsStatic = [];
 
   List<String> get sCategories => _categories;
   List<CategoryContents> get sCatContents => _catMap;
-  List<String> get sCurrentItems => _currentItems;
+  List<String> get sCurrentItems => _currentItemsSelected;
   List<String> get sLastSelection => _previousSelection;
 
   bool addItem(String catName, String item) {
@@ -54,10 +56,10 @@ class HdwState with ChangeNotifier {
     //printCategories(catName);
     if (-1 == index) return false;
 
-    if (_currentItems.contains(itemName)) {
-      int indexI = _currentItems.indexOf(itemName);
-      _currentItems.remove(itemName);
-      _currentItems.insert(indexI, newValue);
+    if (_currentItemsSelected.contains(itemName)) {
+      int indexI = _currentItemsSelected.indexOf(itemName);
+      _currentItemsSelected.remove(itemName);
+      _currentItemsSelected.insert(indexI, newValue);
     }
 
     CategoryContents currCat = _catMap[index];
@@ -71,7 +73,7 @@ class HdwState with ChangeNotifier {
     //printCategories(catName);
     if (-1 == index) return false;
     CategoryContents currCat = _catMap[index];
-    _currentItems.remove(itemName);
+    _currentItemsSelected.remove(itemName);
     //currCat.printItems();
     notifyListeners();
     return currCat.deleteItem(itemName);
@@ -79,12 +81,12 @@ class HdwState with ChangeNotifier {
 
   void setItemInclusion(String item, bool isInsert, bool notify) {
     if (isInsert) {
-      if (!(_currentItems.contains(item))) {
-        _currentItems.add(item);
+      if (!(_currentItemsSelected.contains(item))) {
+        _currentItemsSelected.add(item);
       }
     }
     else {
-      _currentItems.remove(item);
+      _currentItemsSelected.remove(item);
     }
     if (notify) notifyListeners();
   }
@@ -137,17 +139,36 @@ class HdwState with ChangeNotifier {
   }
 
   void clearSelection() {
-    _currentItems = [];
+    _currentItemsSelected = [];
     _currentFullCategories = [];
     notifyListeners();
   }
 
   int itemCount() {
-    return _currentItems.length;
+    return _currentItemsSelected.length;
   }
 
   saveAsLastDraw() {
-    _previousSelection = _currentItems;
+    _previousSelection = _currentItemsSelected;
+  }
+
+  List<String> getCurrItemsStatic() {
+    if (!onCurrSelPage) {
+      onCurrSelPage = true;
+      _currentItemsStatic = List.from( _currentItemsSelected );
+      print("Entered Current Selection page");
+      print("List size: " + _currentItemsStatic.length.toString());
+    }
+    else {
+      print("should not change");
+      print("List size: " + _currentItemsStatic.length.toString());
+    }
+    return _currentItemsStatic;
+  }
+
+  void leaveCurrSelPage() {
+    print("Left Current Selection page");
+    onCurrSelPage = false;
   }
 }
 

@@ -2,8 +2,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:hat_draw_app/hdw_classes/draw_button.dart';
 import 'package:hat_draw_app/hdw_constants.dart';
+import 'package:provider/provider.dart';
 
 import '../hdw_classes/hdw_title_bar.dart';
+import '../hdw_state.dart';
 
 class DrawPage extends StatelessWidget {
   const DrawPage({super.key});
@@ -26,7 +28,7 @@ class DrawPage extends StatelessWidget {
         ),
         body: Column(
           children: [
-            const Spacer(),
+            const Spacer(flex: 2,),
             Text(
               selection,
               style: TextStyle (
@@ -41,17 +43,39 @@ class DrawPage extends StatelessWidget {
             ),
             const Spacer(),
             SizedBox(
-              height: 100,
+              height: 120,
               child: Column(
                   children: [
                     DrawButton(items: itemsList, is_redraw: true),
                     const Spacer(),
-                    FloatingActionButton.extended(
-                      label: const Text("Return to Selection"),
-                      backgroundColor: Colors.red[900],
-                      foregroundColor: Colors.white,
-                      onPressed: () => { Navigator.pop(context) },
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Spacer(),
+                        FloatingActionButton.extended(
+                          heroTag: "edit selection",
+                          label: const Text("Edit Selection"),
+                          backgroundColor: Colors.red[900],
+                          foregroundColor: Colors.white,
+                          onPressed: () => {
+                            Navigator.pop(context)
+                          },
+                        ),
+                        const Spacer(),
+                        FloatingActionButton.extended(
+                          heroTag: "new selection",
+                          label: const Text("New Selection"),
+                          backgroundColor: Colors.red[900],
+                          foregroundColor: Colors.white,
+                          onPressed: () => {
+                            Provider.of<HdwState>(context, listen: false).clearSelection(),
+                            Navigator.pushNamed(context, HdwConstants.categoriesPage,)
+                          },
+                        ),
+                        const Spacer(),
+                      ],
                     ),
+                    const Spacer(),
                   ],
               ),
             ),

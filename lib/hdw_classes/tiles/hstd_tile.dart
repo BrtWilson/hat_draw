@@ -282,6 +282,7 @@ class StdTileEditing extends StatelessWidget{
                   // Provider.of<HdwState>(context, listen: false).editItem(
                   //     _parent, _name, newText);
                   Action_(StdTileConstants.edit, _teController);
+                  //TODO:  differentiate category and item editing.
                 },
               ),
               InkWell(

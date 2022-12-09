@@ -11,12 +11,16 @@ import 'hdw_state.dart';
 
 void main() {
   runApp(
-      MultiProvider(
-          providers: [
-            ChangeNotifierProvider(create: (_) => HdwState())
-          ],
-          child: MyApp(),
-      )
+      // MultiProvider(
+      //     providers: [
+      //       ChangeNotifierProvider(create: (_) => HdwState())
+      //     ],
+      //     child: MyApp(),
+      // )
+    ChangeNotifierProvider(
+      create: (_) => HdwState(),
+      child: MyApp(),
+    )
   );
 }
 

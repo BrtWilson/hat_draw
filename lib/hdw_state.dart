@@ -20,6 +20,7 @@ class HdwState with ChangeNotifier {
     int index = _categories.indexOf(catName);
     if (-1 == index) return false;
     CategoryContents currCat = _catMap[index];
+    notifyListeners();
     return currCat.addItem(item);
   }
 
@@ -60,6 +61,7 @@ class HdwState with ChangeNotifier {
     }
 
     CategoryContents currCat = _catMap[index];
+    notifyListeners();
     return currCat.modItem(itemName, newValue);
   }
 
@@ -71,10 +73,24 @@ class HdwState with ChangeNotifier {
     CategoryContents currCat = _catMap[index];
     _currentItems.remove(itemName);
     //currCat.printItems();
+    notifyListeners();
     return currCat.deleteItem(itemName);
   }
 
   void setItemInclusion(String item, bool isInsert) {
+    // if (isInsert) {
+    //   if (!(_currentItems.contains(item))) {
+    //     _currentItems.add(item);
+    //   }
+    // }
+    // else {
+    //   _currentItems.remove(item);
+    // }
+    // notifyListeners();
+    setItemInclusionN_(item, isInsert, true);
+  }
+
+  void setItemInclusionN_(String item, bool isInsert, bool notify) {
     if (isInsert) {
       if (!(_currentItems.contains(item))) {
         _currentItems.add(item);
@@ -83,6 +99,7 @@ class HdwState with ChangeNotifier {
     else {
       _currentItems.remove(item);
     }
+    if (notify) notifyListeners();
   }
 
   bool checkForCategory(String catName) {
@@ -119,8 +136,9 @@ class HdwState with ChangeNotifier {
     int index = _categories.indexOf(catName);
     List<String> catItems = _catMap[index].mItems;
     for (var item in catItems) {
-      setItemInclusion(item, isInsert);
+      setItemInclusionN_(item, isInsert, false);
     }
+    notifyListeners();
   }
 
   void printCategories(String target) {
@@ -134,6 +152,7 @@ class HdwState with ChangeNotifier {
   void clearSelection() {
     _currentItems = [];
     _currentFullCategories = [];
+    notifyListeners();
   }
 
   int itemCount() {

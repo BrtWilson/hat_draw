@@ -14,7 +14,7 @@ class HdwPageFooter extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const Spacer(),
+        const Spacer(flex: 2,),
         DrawButton(items: context.watch<HdwState>().sCurrentItems),
         const Spacer(),
         const HCurrSelectionSquare(),

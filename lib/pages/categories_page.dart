@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:hat_draw_app/hdw_classes/hdw_page_footer.dart';
 import 'package:hat_draw_app/hdw_classes/tiles/hdw_tile.dart';
 import 'package:provider/provider.dart';
-import 'package:hat_draw_app/hdw_classes/draw_button.dart';
 import 'package:hat_draw_app/hdw_state.dart';
 
 import '../hdw_classes/hdw_title_bar.dart';
-import '../hdw_constants.dart';
 
 class CategoriesPage extends StatelessWidget {
   const CategoriesPage({
@@ -16,7 +15,7 @@ class CategoriesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Widget> categories = context.watch<HdwState>().sCategories.map((c_name) => HdwTile(name: c_name, )).toList();
     categories.add(const HdwTile(name: "New Category", isNew: true,));
-    categories.insert(0, const HdwTile(name: HdwConstants.currentSelection));
+    //categories.insert(0, const HdwTile(name: HdwConstants.currentSelection));
 
     double listHeight = MediaQuery.of(context).size.height - 221;
     double keyOverflow = 0.0;
@@ -40,7 +39,7 @@ class CategoriesPage extends StatelessWidget {
                     children: categories, //context.watch<HdwState>().sCategories.map((c_name) => CategoryTile(name: c_name, checkedItems: context.watch<HdwState>().sCurrentItems, setInclusion: context.watch<HdwState>().setItemInclusion)).toList(),
                 ),
             ),
-            if (keyOverflow == 0.0) DrawButton(items: context.watch<HdwState>().sCurrentItems),
+            if (keyOverflow == 0.0) const HdwPageFooter(), //DrawButton(items: context.watch<HdwState>().sCurrentItems),
           ]
         ),
     );

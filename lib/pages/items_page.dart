@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hat_draw_app/hdw_classes/hdw_page_footer.dart';
 import 'package:hat_draw_app/hdw_classes/tiles/hdw_tile.dart';
 import 'package:hat_draw_app/hdw_constants.dart';
 import 'package:provider/provider.dart';
@@ -90,7 +91,7 @@ class _ItemsPageState extends State<ItemsPageContent> {
               //HdwTile(name: widget._catName,),
               ItemsPageBar(catName: widget._catName, update: Action),
               SizedBox(
-                height: 600 - keyOverflow,
+                height: 550 - keyOverflow,
                 width: 400,
                 child:
                   ListView(
@@ -100,7 +101,7 @@ class _ItemsPageState extends State<ItemsPageContent> {
                   children: items,
                 ),
               ),
-              if (keyOverflow == 0.0) DrawButton(items: context.watch<HdwState>().sCurrentItems),
+              if (keyOverflow == 0.0) HdwPageFooter(), //DrawButton(items: context.watch<HdwState>().sCurrentItems),
             ]
           )
       );

@@ -40,15 +40,15 @@ class StdTileState extends State<HStdTile> {
   }
 
   void ItemUpdate(String action, TextEditingController teController) {
+    final bool notifyingPage = (HdwConstants.currentSelection == widget._parent);
     setState(() {
       if (StdTileConstants.cancel != action) {
-        // TODO: set checking whether on current selection page
         if (StdTileConstants.edit == action) {
           String newText = teController.text;
           bool success = false;
           if (widget._isChild) {
             success = Provider.of<HdwState>(context, listen: false).editItem(
-                widget._parent, widget._name, newText);
+                widget._parent, widget._name, newText, notifyingPage);
           }
           else {
             Provider.of<HdwState>(context, listen: false).editCategory(
@@ -58,12 +58,15 @@ class StdTileState extends State<HStdTile> {
         }
         else if (StdTileConstants.delete == action) {
           bool success = false;
-          // TODO: correct to account for <item vs category> (only allowing if category is empty, or after verification)
-          if (widget._isChild) {
+          if (!notifyingPage) {
+            Provider.of<HdwState>(context, listen: false).setItemInclusion(widget._name, false, true);
+          }
+          else if (widget._isChild) {
             success = Provider.of<HdwState>(context, listen: false).removeItem(
                 widget._parent, widget._name);
           }
           else {
+            // TODO: correct to account for <item vs category> (only allowing if category is empty, or after verification)
             print("Category Deletion not implemented");
           }
           if (!success) print("Failed to delete item.");
@@ -79,9 +82,9 @@ class StdTileState extends State<HStdTile> {
 
   void Checkbox(bool value) {
     setState(() {
-      // TODO: set checking whether on current selection page
       if (widget._isChild) {
-        Provider.of<HdwState>(context, listen: false).setItemInclusion(widget._name, value);
+        bool notifying = (HdwConstants.currentSelection == widget._name);
+        Provider.of<HdwState>(context, listen: false).setItemInclusion(widget._name, value, notifying);
       }
       else {
         Provider.of<HdwState>(context, listen: false).setCategoryInclusion(widget._name, value);

@@ -106,7 +106,7 @@ class _CategoryTileState extends State<CategoryTile> {
                                         if (value != null) {
                                           isChecked = value;
                                           if (widget._isChild) {
-                                            Provider.of<HdwState>(context, listen: false).setItemInclusion(widget._name, value);
+                                            Provider.of<HdwState>(context, listen: false).setItemInclusion(widget._name, value, true);
                                             //context.watch<HdwState>().setItemInclusion(widget._name, value);
                                           }
                                           else {

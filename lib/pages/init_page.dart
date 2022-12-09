@@ -10,8 +10,6 @@ class InitPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> bCurrList = context.watch<HdwState>().sCurrentItems;
-
     return Scaffold(
         appBar: AppBar(
           title: const HdwTitleBar(),
@@ -41,6 +39,7 @@ class InitPage extends StatelessWidget {
                             backgroundColor: Colors.red[900],
                             foregroundColor: Colors.black,
                             onPressed: () => {
+                              Provider.of<HdwState>(context, listen: false).clearSelection(),
                               Navigator.pushNamed(context, HdwConstants.categoriesPage,)
                             },
                           ),
@@ -53,7 +52,7 @@ class InitPage extends StatelessWidget {
                     backgroundColor: Colors.red[900],
                     foregroundColor: Colors.black,
                     onPressed: () => {
-                      Navigator.pushNamed(context, HdwConstants.drawPage, arguments: { HdwConstants.clistArg: bCurrList } )
+                      Navigator.pushNamed(context, HdwConstants.drawPage, arguments: { HdwConstants.clistArg: Provider.of<HdwState>(context, listen:false).sLastSelection } )
                     },
                   ),
                 ],

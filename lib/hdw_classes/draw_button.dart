@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../hdw_state.dart';
 
 class DrawButton extends StatelessWidget {
   const DrawButton({
@@ -31,10 +34,9 @@ class DrawButton extends StatelessWidget {
           backgroundColor: Colors.red[800],
           foregroundColor: Colors.black,
           onPressed: () => {
-//            if (_items.isNotEmpty) {
-              if (_isRedraw) Navigator.pushReplacementNamed(context, "/draw", arguments: {'itemsList': _items } )
-              else Navigator.pushNamed(context, "/draw", arguments: {'itemsList': _items } )
-//            }
+            Provider.of<HdwState>(context, listen: false).saveAsLastDraw(),
+            if (_isRedraw) Navigator.pushReplacementNamed(context, "/draw", arguments: {'itemsList': _items } )
+            else Navigator.pushNamed(context, "/draw", arguments: {'itemsList': _items } )
           },
         ),
     );

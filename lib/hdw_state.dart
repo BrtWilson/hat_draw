@@ -140,7 +140,7 @@ class HdwState with ChangeNotifier {
     return _currentItems.length;
   }
 
-  saveAsHistory() {
+  saveAsLastDraw() {
     _previousSelection = _currentItems;
   }
 }

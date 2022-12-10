@@ -63,6 +63,9 @@ class NewTileState extends State<HNewTile> {
               setState(() {
                 if (widget._isChild) {
                   if (widget._parent.isNotEmpty) {
+                    if (HdwConstants.currentSelection == widget._parent) {
+                      Provider.of<HdwState>(context, listen: false).addItemToSelection(inputText);
+                    }
                     Provider.of<HdwState>(context, listen: false).addItem(widget._parent, inputText);
                     Navigator.pushReplacementNamed(context, '/items', arguments: { 'catName': widget._parent });
                   }

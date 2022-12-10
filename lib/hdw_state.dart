@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hat_draw_app/hdw_constants.dart';
 import 'hdw_classes/category_contents.dart';
 
 class HdwState with ChangeNotifier {
@@ -52,6 +53,18 @@ class HdwState with ChangeNotifier {
 
   bool editItem(String catName, String itemName, String newValue, bool notifying) {
     print("Editing item: $itemName");
+    if (HdwConstants.currentSelection == catName) {
+      int index = _currentItemsSelected.indexOf(itemName);
+      _currentItemsSelected.remove(itemName);
+      _currentItemsSelected.insert(index, newValue);
+
+      index = _currentItemsStatic.indexOf(itemName);
+      _currentItemsStatic.remove(itemName);
+      _currentItemsStatic.insert(index, newValue);
+      notifyListeners();
+      return true;
+    }
+
     int index = _categories.indexOf(catName);
     //printCategories(catName);
     if (-1 == index) return false;
@@ -69,17 +82,34 @@ class HdwState with ChangeNotifier {
 
   bool removeItem(String catName, String itemName) {
     print("Removing item: $itemName");
+    if (HdwConstants.currentSelection == catName) {
+      _currentItemsStatic.remove(itemName);
+      return _currentItemsSelected.remove(itemName);
+    }
+
     int index = _categories.indexOf(catName);
-    //printCategories(catName);
     if (-1 == index) return false;
     CategoryContents currCat = _catMap[index];
     _currentItemsSelected.remove(itemName);
-    //currCat.printItems();
+
     notifyListeners();
     return currCat.deleteItem(itemName);
   }
 
-  void setItemInclusion(String item, bool isInsert, bool notify) {
+  void setItemInclusion(String catName, String item, bool isInsert, bool notify) {
+    if (isInsert) {
+      if (!(_currentItemsSelected.contains(item))) {
+        _currentItemsSelected.add(item);
+      }
+    }
+    else {
+      _currentFullCategories.remove(catName);
+      _currentItemsSelected.remove(item);
+    }
+    if (notify) notifyListeners();
+  }
+
+  void setItemInclusionPrivate(String item, bool isInsert, bool notify) {
     if (isInsert) {
       if (!(_currentItemsSelected.contains(item))) {
         _currentItemsSelected.add(item);
@@ -100,6 +130,9 @@ class HdwState with ChangeNotifier {
     if (-1 == index) return false;
     _categories.remove(category);
     _categories.insert(index, newText);
+
+    _catMap.elementAt(index).mCategoryName = newText;
+
     if (_currentFullCategories.contains(category)) {
       index = _currentFullCategories.indexOf(category);
       _currentFullCategories.remove(category);
@@ -109,8 +142,15 @@ class HdwState with ChangeNotifier {
   }
 
   bool deleteCategory(String category) {
+    int index = _categories.indexOf(category);
+    if (-1 == index) return false;
+    if (_catMap.elementAt(index).isEmpty()) {
+      _categories.remove(category);
+      _catMap.removeAt(index);
+      return true;
+    }
     return false;
-    //Todo
+    //Todo: test
   }
 
   void setCategoryInclusion(String catName, bool isInsert) {
@@ -125,7 +165,7 @@ class HdwState with ChangeNotifier {
     int index = _categories.indexOf(catName);
     List<String> catItems = _catMap[index].mItems;
     for (var item in catItems) {
-      setItemInclusion(item, isInsert, false);
+      setItemInclusionPrivate(item, isInsert, false);
     }
     notifyListeners();
   }
@@ -169,6 +209,12 @@ class HdwState with ChangeNotifier {
   void leaveCurrSelPage() {
     print("Left Current Selection page");
     onCurrSelPage = false;
+  }
+
+  void addItemToSelection(String inputText) {
+    _currentItemsSelected.add(inputText);
+    _currentItemsStatic.add(inputText);
+    notifyListeners();
   }
 }
 

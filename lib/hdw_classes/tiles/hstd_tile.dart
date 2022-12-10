@@ -59,15 +59,18 @@ class StdTileState extends State<HStdTile> {
         else if (StdTileConstants.delete == action) {
           bool success = false;
           if (!notifyingPage) {
-            Provider.of<HdwState>(context, listen: false).setItemInclusion(widget._name, false, true);
+            Provider.of<HdwState>(context, listen: false).setItemInclusion(widget._parent, widget._name, false, true);
           }
           else if (widget._isChild) {
             success = Provider.of<HdwState>(context, listen: false).removeItem(
                 widget._parent, widget._name);
           }
           else {
+            if (!Provider.of<HdwState>(context, listen: false).deleteCategory(widget._name)) {
+              print("Category is not empty (or does not exist)");
+              //Todo: pop-up alert
+            }
             // TODO: correct to account for <item vs category> (only allowing if category is empty, or after verification)
-            print("Category Deletion not implemented");
           }
           if (!success) print("Failed to delete item.");
         }
@@ -83,7 +86,7 @@ class StdTileState extends State<HStdTile> {
   void Checkbox(bool value) {
     setState(() {
       if (widget._isChild) {
-        Provider.of<HdwState>(context, listen: false).setItemInclusion(widget._name, value, true);
+        Provider.of<HdwState>(context, listen: false).setItemInclusion(widget._parent, widget._name, value, true);
       }
       else {
         Provider.of<HdwState>(context, listen: false).setCategoryInclusion(widget._name, value);

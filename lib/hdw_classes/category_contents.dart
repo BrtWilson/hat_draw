@@ -38,4 +38,8 @@ class CategoryContents {
       print(item);
     }
   }
+
+  bool isEmpty() {
+    return mItems.isEmpty;
+  }
 }
